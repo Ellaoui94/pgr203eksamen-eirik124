@@ -22,4 +22,9 @@ jobs:
       with:
         java-version: 11
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn test --batch-mode -Dmaven.test.failure.ignore=true
+    - name: Publish test report
+      uses: scacap/action-surefire-report@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+      
