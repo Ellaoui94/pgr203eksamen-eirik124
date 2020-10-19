@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +53,12 @@ public class HttpServer {
         if (requestMethod.equals("POST")) {
             QueryString requestParameter = new QueryString(request.getBody());
 
+
+
             ProjectMember projectMember = new ProjectMember();
             projectMember.setFirstName(requestParameter.getParameter("first_name"));
             projectMember.setLastName(requestParameter.getParameter("last_name"));
-            projectMember.setEmail(requestParameter.getParameter("email"));
+            projectMember.setEmail(URLDecoder.decode(requestParameter.getParameter("email")));
             projectMemberDao.insert(projectMember);
 
             String body = "Okay";
@@ -118,7 +121,7 @@ public class HttpServer {
         body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +
-                "Content-Type: text/html\r\n" +
+                "Content-Type: text/html; application/x-www-form-urlencoded\r\n" +
                 "Connection: close\r\n" +
                 "\r\n" +
                 body;
