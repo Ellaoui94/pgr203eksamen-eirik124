@@ -11,9 +11,9 @@ Pål Anders Byenstuen, Eirik Lundanes og Vibeke Opgård.
 
 Oppgaven er utviklet med test-drevet parprogrammering. Vi har laget en webapplikasjon som kan lagre og liste ut prosjektmedlemmer fra databasen. Det er mulig å legge til et "project member" med fornavn, etternavn og e-postadresse og se den på websiden.
 
-### Surefire Report
-Link til Surefire report fra kjøring
-[Test Report](https://github.com/kristiania/pgr203innevering3-eirik124/runs/1283456544)
+### Github Actions
+Link til github actions
+[Github Actions](https://github.com/kristiania/pgr203eksamen-eirik124/actions)
 
 -----------------------------
 ### Hvordan det bygges
