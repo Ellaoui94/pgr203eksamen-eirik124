@@ -69,7 +69,7 @@ Funksjonalitet
 - [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
 - [ ] God bruk av DAO-pattern
 - [ ] God bruk av Controller-pattern
-- [ ] Korrekt håndtering av norske tegn i HTTP
+- [X] Korrekt håndtering av norske tegn i HTTP
 - [ ] Link til video med god demonstrasjon av ping-pong programmering
 - [ ] Automatisk rapportering av testdekning i Github Actions
 - [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
