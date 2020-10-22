@@ -1,4 +1,5 @@
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-eirik124/workflows/Java%20CI%20with%20Maven/badge.svg)
+[Github Actions](https://github.com/kristiania/pgr203eksamen-eirik124/actions)
 # pgr203eksamen-eirik124
 
 #### Gruppemedlemmer:
@@ -37,24 +38,24 @@ Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den por
 
 ### Sjekkliste for innlevering
 - [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
-- [ ] Koden er sjekket inn på github.com/kristiania-repository
+- [X] Koden er sjekket inn på github.com/kristiania-repository
 - [ ] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
 README.md
-- [ ] README.md inneholder en korrekt link til Github Actions
+- [X] README.md inneholder en korrekt link til Github Actions
 - [ ] README.md beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
 - [ ] README.md beskriver eventuell ekstra leveranse utover minimum
 - [ ] README.md inneholder et diagram som viser datamodellen
 - [ ] Dere har gitt minst 2 positive og 2 korrektive GitHub issues til en annen gruppe og inkluderer link til disse fra README.md
 Koden
-- [ ] mvn package bygger en executable jar-fil
-- [ ] Koden inneholder et godt sett med tester
+- [X] mvn package bygger en executable jar-fil
+- [X] Koden inneholder et godt sett med tester
 - [ ] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
 - [ ] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
 - [ ] Programmet bruker Flywaydb for å sette opp databaseskjema
 - [ ] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
 Funksjonalitet
-- [ ] Programmet kan liste prosjektdeltagere fra databasen
-- [ ] Programmet lar bruker opprette nye prosjektdeltagere i databasen
+- [X] Programmet kan liste prosjektdeltagere fra databasen
+- [X] Programmet lar bruker opprette nye prosjektdeltagere i databasen
 - [ ] Programmet kan opprette og liste prosjektoppgaver fra databasen
 - [ ] Programmet lar bruker tildele prosjektdeltagere til oppgaver
 - [ ] Flere prosjektdeltagere kan tildeles til samme oppgave
