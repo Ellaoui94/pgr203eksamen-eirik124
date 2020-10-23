@@ -25,11 +25,13 @@ import java.util.Properties;
 public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
+    private int port;
     private ProjectMemberDao projectMemberDao;
 
     private Map<String, ControllerMcControllerface> controllers;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
+        this.port = port;
         projectMemberDao = new ProjectMemberDao(dataSource);
         ProjectDao projectDao = new ProjectDao(dataSource);
 
@@ -50,6 +52,10 @@ public class HttpServer {
                 }
             }
         }).start();
+    }
+
+    public int getPort() {
+        return port;
     }
 
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
