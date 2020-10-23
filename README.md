@@ -1,5 +1,4 @@
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-eirik124/workflows/Java%20CI%20with%20Maven/badge.svg)
-[Github Actions](https://github.com/kristiania/pgr203eksamen-eirik124/actions)
 # pgr203eksamen-eirik124
 
 #### Gruppemedlemmer:
