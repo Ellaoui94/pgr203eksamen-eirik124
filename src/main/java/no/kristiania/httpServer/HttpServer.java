@@ -1,5 +1,6 @@
 package no.kristiania.httpServer;
 
+import no.kristiania.database.ProjectDao;
 import no.kristiania.database.ProjectMember;
 import no.kristiania.database.ProjectMemberDao;
 import org.flywaydb.core.Flyway;
@@ -8,14 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class HttpServer {
@@ -23,8 +27,17 @@ public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private ProjectMemberDao projectMemberDao;
 
+    private Map<String, ControllerMcControllerface> controllers;
+
     public HttpServer(int port, DataSource dataSource) throws IOException {
         projectMemberDao = new ProjectMemberDao(dataSource);
+        ProjectDao projectDao = new ProjectDao(dataSource);
+
+        controllers = Map.of(
+                "/api/newProject", new ProjectPostController(projectDao),
+                "/api/projects", new ProjectGetController(projectDao)
+        );
+
         ServerSocket serverSocket = new ServerSocket(port);
 
         new Thread(() -> {
@@ -52,34 +65,51 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            QueryString requestParameter = new QueryString(request.getBody());
+            if (requestPath.equals("/api/newProjectMember")) {
+                handlePostProjectMember(clientSocket, request);
+            } else {
+               getController(requestPath).handle(request, clientSocket);
+            }
 
-
-
-            ProjectMember projectMember = new ProjectMember();
-            projectMember.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
-            projectMember.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
-            projectMember.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
-            projectMemberDao.insert(projectMember);
-            System.out.println(projectMember.getFirstName());
-
-            String body = "Okay";
-            String response = "HTTP/1.1 200 OK\r\n" +
-                    "Connection: close\r\n" +
-                    "Content-Length: " + body.length() + "\r\n" +
-                    "\r\n" +
-                    body;
-
-            clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
         } else {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/api/projectMembers")) {
                 handleGetProducts(clientSocket);
             } else {
-                handleFileRequest(clientSocket, requestPath);
+                ControllerMcControllerface controller = controllers.get(requestPath);
+                if (controller != null) {
+                    controller.handle(request, clientSocket);
+                } else {
+                    handleFileRequest(clientSocket, requestPath);
+                }
             }
         }
+    }
+
+    private ControllerMcControllerface getController(String requestPath) {
+        return controllers.get(requestPath);
+    }
+
+    private void handlePostProjectMember(Socket clientSocket, HttpMessage request) throws SQLException, IOException {
+        QueryString requestParameter = new QueryString(request.getBody());
+
+
+        ProjectMember projectMember = new ProjectMember();
+        projectMember.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
+        projectMember.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
+        projectMember.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
+        projectMemberDao.insert(projectMember);
+        System.out.println(projectMember.getFirstName());
+
+        String body = "Okay";
+        String response = "HTTP/1.1 200 OK\r\n" +
+                "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
+                "\r\n" +
+                body;
+
+        clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
     }
 
     private void handleFileRequest(Socket clientSocket, String requestPath) throws IOException {
