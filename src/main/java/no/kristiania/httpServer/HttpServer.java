@@ -25,13 +25,12 @@ import java.util.Properties;
 public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
-    private int port;
     private ProjectMemberDao projectMemberDao;
 
     private Map<String, ControllerMcControllerface> controllers;
+    private final ServerSocket serverSocket;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
-        this.port = port;
         projectMemberDao = new ProjectMemberDao(dataSource);
         ProjectDao projectDao = new ProjectDao(dataSource);
 
@@ -40,7 +39,7 @@ public class HttpServer {
                 "/api/projects", new ProjectGetController(projectDao)
         );
 
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
 
         new Thread(() -> {
             while (true) {
@@ -55,7 +54,7 @@ public class HttpServer {
     }
 
     public int getPort() {
-        return port;
+        return serverSocket.getLocalPort();
     }
 
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
