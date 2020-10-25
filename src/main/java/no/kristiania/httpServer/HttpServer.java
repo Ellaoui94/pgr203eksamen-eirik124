@@ -3,6 +3,7 @@ package no.kristiania.httpServer;
 import no.kristiania.database.ProjectDao;
 import no.kristiania.database.ProjectMember;
 import no.kristiania.database.ProjectMemberDao;
+import no.kristiania.httpServer.controllers.*;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
@@ -26,17 +27,20 @@ public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private ProjectMemberDao projectMemberDao;
+    private ProjectDao projectDao;
 
     private Map<String, ControllerMcControllerface> controllers;
     private final ServerSocket serverSocket;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
         projectMemberDao = new ProjectMemberDao(dataSource);
-        ProjectDao projectDao = new ProjectDao(dataSource);
+        projectDao = new ProjectDao(dataSource);
 
         controllers = Map.of(
                 "/api/newProject", new ProjectPostController(projectDao),
-                "/api/projects", new ProjectGetController(projectDao)
+                "/api/projects", new ProjectGetController(projectDao),
+                "/api/projectMembers", new ProjectMemberGetController(projectMemberDao),
+                "/api/newProjectMember", new ProjectMemberPostController(projectMemberDao)
         );
 
         serverSocket = new ServerSocket(port);
@@ -57,6 +61,7 @@ public class HttpServer {
         return serverSocket.getLocalPort();
     }
 
+
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
         HttpMessage request = new HttpMessage(clientSocket);
         String requestLine = request.getStartLine();
@@ -70,17 +75,17 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            if (requestPath.equals("/api/newProjectMember")) {
-                handlePostProjectMember(clientSocket, request);
-            } else {
-               getController(requestPath).handle(request, clientSocket);
-            }
+            getController(requestPath).handle(request, clientSocket);
 
         } else {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/api/projectMembers")) {
-                handleGetProducts(clientSocket);
+                ControllerMcControllerface controller = controllers.get(requestPath);
+                controller.handle(request, clientSocket);
+            } else if(requestPath.equals("/api/projects")) {
+                ControllerMcControllerface controller = controllers.get(requestPath);
+                controller.handle(request, clientSocket);
             } else {
                 ControllerMcControllerface controller = controllers.get(requestPath);
                 if (controller != null) {
@@ -94,27 +99,6 @@ public class HttpServer {
 
     private ControllerMcControllerface getController(String requestPath) {
         return controllers.get(requestPath);
-    }
-
-    private void handlePostProjectMember(Socket clientSocket, HttpMessage request) throws SQLException, IOException {
-        QueryString requestParameter = new QueryString(request.getBody());
-
-
-        ProjectMember projectMember = new ProjectMember();
-        projectMember.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
-        projectMember.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
-        projectMember.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
-        projectMemberDao.insert(projectMember);
-        System.out.println(projectMember.getFirstName());
-
-        String body = "Okay";
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Connection: close\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
-                "\r\n" +
-                body;
-
-        clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
     }
 
     private void handleFileRequest(Socket clientSocket, String requestPath) throws IOException {
@@ -136,6 +120,10 @@ public class HttpServer {
             String contentType = "text/plain";
             if (requestPath.endsWith(".html")) {
                 contentType = "text/html";
+            } else if (requestPath.endsWith(".css")) {
+                contentType = "text/css";
+            } else {
+                contentType = "text/plain";
             }
 
             String response = "HTTP/1.1 200 OK\r\n" +
@@ -149,22 +137,7 @@ public class HttpServer {
         }
     }
 
-    private void handleGetProducts(Socket clientSocket) throws IOException, SQLException {
-        String body = "<ul>";
-        for (ProjectMember projectMember : projectMemberDao.list()) {
-            body += "<li>" + projectMember.getFirstName() + " " + projectMember.getLastName() +
-                    ", " + projectMember.getEmail() + "</li>";
-        }
-        body += "</ul>";
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
-                "Content-Type: text/html; application/x-www-form-urlencoded\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                body;
 
-        clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
-    }
 
     private void handleEchoRequest(Socket clientSocket, String requestTarget, int questionPos) throws IOException {
         String statusCode = "200";
@@ -203,7 +176,9 @@ public class HttpServer {
 
         HttpServer server = new HttpServer(8080, dataSource);
         logger.info("Started on http://localhost:{}/index.html", 8080);
+
     }
+
 
     public List<ProjectMember> getProjectMembers() throws SQLException {
         return projectMemberDao.list();
