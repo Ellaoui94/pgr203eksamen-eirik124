@@ -41,21 +41,21 @@ Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den por
 - [ ] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
 README.md
 - [X] README.md inneholder en korrekt link til Github Actions
-- [ ] README.md beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
+- [X] README.md beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
 - [ ] README.md beskriver eventuell ekstra leveranse utover minimum
 - [ ] README.md inneholder et diagram som viser datamodellen
 - [ ] Dere har gitt minst 2 positive og 2 korrektive GitHub issues til en annen gruppe og inkluderer link til disse fra README.md
 Koden
 - [X] mvn package bygger en executable jar-fil
 - [X] Koden inneholder et godt sett med tester
-- [ ] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
-- [ ] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
-- [ ] Programmet bruker Flywaydb for å sette opp databaseskjema
-- [ ] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
+- [X] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
+- [X] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
+- [X] Programmet bruker Flywaydb for å sette opp databaseskjema
+- [X] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
 Funksjonalitet
 - [X] Programmet kan liste prosjektdeltagere fra databasen
 - [X] Programmet lar bruker opprette nye prosjektdeltagere i databasen
-- [ ] Programmet kan opprette og liste prosjektoppgaver fra databasen
+- [X] Programmet kan opprette og liste prosjektoppgaver fra databasen
 - [ ] Programmet lar bruker tildele prosjektdeltagere til oppgaver
 - [ ] Flere prosjektdeltagere kan tildeles til samme oppgave
 - [ ] Programmet lar bruker endre status på en oppgave
