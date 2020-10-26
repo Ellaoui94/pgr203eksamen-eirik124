@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign member to Project</title>
+</head>
+<body>
+
+<form method="POST" action="/api/assignToProject">
+    <div>
+        <p>Select Project</p>
+        <select id="projects" name="select_project">
+            <option selected="selected">Select Project</option>
+        </select>
+    </div>
+    <div>
+        <p>Assign Project Member to project</p>
+        <select id="projectMemberName" name="select_project_member" multiple size="5"></select>
+    </div>
+    <div>
+        <p>Select task</p>
+        <select id="tasks" name="select_task"></select>
+    </div>
+    <div>
+        <p>Select Status</p>
+        <select id="status" name="select_status">
+            <option value="to do">To do</option>
+            <option value="in progress">In progress</option>
+            <option value="done">Done</option>
+        </select>
+    </div>
+    <div>
+        <textarea name="description" maxlength="500">
+            Enter description here....
+        </textarea>
+    </div>
+    <div>
+    </div>
+    <button>Add</button>
+</form>
+</body>
+<script>
+    fetch("/api/projects")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        console.log(text);
+        document.getElementById("projects").innerHTML = text;
+    });
+    fetch("/api/projectMemberList")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("projectMemberName").innerHTML = text;
+    });
+    fetch("/api/tasks")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        console.log(text);
+        document.getElementById("tasks").innerHTML = text;
+    });
+</script>
+</html>
