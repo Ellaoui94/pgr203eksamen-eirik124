@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Assign member to Project</title>
+    <title>Assign member to project | Project Manager</title>
 </head>
 <body>
 
 <form method="POST" action="/api/assignToProject">
     <div>
-        <p>Select Project</p>
+        <p>Select project</p>
         <select id="projects" name="select_project">
             <option selected="selected">Select Project</option>
         </select>
     </div>
     <div>
-        <p>Assign Project Member to project</p>
+        <p>Assign project member to project</p>
         <select id="projectMemberName" name="select_project_member" multiple size="5"></select>
     </div>
     <div>
@@ -22,7 +22,7 @@
         <select id="tasks" name="select_task"></select>
     </div>
     <div>
-        <p>Select Status</p>
+        <p>Select status</p>
         <select id="status" name="select_status">
             <option value="to do">To do</option>
             <option value="in progress">In progress</option>
@@ -30,13 +30,11 @@
         </select>
     </div>
     <div>
-        <textarea name="description" maxlength="500">
-            Enter description here....
-        </textarea>
+        <textarea name="description" maxlength="500" placeholder="Enter a description here..."></textarea>
     </div>
     <div>
     </div>
-    <button>Add</button>
+    <button>Assign</button>
 </form>
 </body>
 <script>

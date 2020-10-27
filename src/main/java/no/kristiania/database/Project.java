@@ -2,7 +2,7 @@ package no.kristiania.database;
 
 public class Project {
     private String name;
-    private long id;
+    private Long id;
 
     public String getName() {
         return name;
