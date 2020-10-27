@@ -18,82 +18,12 @@ Link til github actions
 ### UML Modeller
 
 #### Database struktur
-```plantuml
-entity Projects {
-    id
-    --
-    name
-    description
-    budget
-    status
-    project-member_id
-}
-
-entity ProjectMembers {
-    id
-    --
-    first_name
-    last_name
-    email
-    hourly_wage
-}
-
-entity Tasks {
-    id
-    --
-    name
-    description
-}
-
-entity ProjectAssignments {
-    project_id
-    project-member_id
-    --
-    hours_worked
-}
-
-Projects ||--o{ Tasks
-Projects ||--o{ ProjectAssignments
-ProjectMembers "ProjectManager" ||--|| Projects
-ProjectMembers ||--o{ ProjectAssignments
-```
 
 ![](docs/database_structure.png)
 
 #### Server struktur
 
-```puml
-actor User
-participant WebBrowser
-
-box Java Http-Server
-    participant HttpServer
-    participant ProjectMemberListController
-    participant ProjectMemberDao
-end box
-
-database PostgreSQL
-
-User -> WebBrowser: List ProjectMembers
-WebBrowser -> HttpServer: /index.html
-WebBrowser <-- HttpServer: <html>.....<script> fetch() </script>
-WebBrowser -> HttpServer: /api/projectMembers
-HttpServer -> HttpServer: controllers.get("/api/projectMembers")
-HttpServer -> ProjectMemberListController: handle(HttpMessage request)
-ProjectMemberListController -> ProjectMemberDao: list()
-ProjectMemberDao -> PostgreSQL: SELECT * FROM projectMembers
-ProjectMemberDao <-- PostgreSQL: ResultSet
-ProjectMemberListController <-- ProjectMemberDao: List<ProjectMember>
-HttpServer <-- ProjectMemberListController: [HttpMessage response]
-WebBrowser <-- HttpServer: <li>Fornavn, Etternavn, bruker@epost.no</li><li> </li>
-User <- WebBrowser: List of ProjectMembers
-
-```
 ![](docs/server_structure.png)
-
-
-
------------------------------
 
 -----------------------------
 ### Hvordan det bygges
