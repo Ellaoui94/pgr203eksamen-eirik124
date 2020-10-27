@@ -58,6 +58,8 @@ ProjectMembers "ProjectManager" ||--|| Projects
 ProjectMembers ||--o{ ProjectAssignments
 ```
 
+![](docs/database_structure.png)
+
 #### Server struktur
 
 ```puml
@@ -87,6 +89,7 @@ WebBrowser <-- HttpServer: <li>Fornavn, Etternavn, bruker@epost.no</li><li> </li
 User <- WebBrowser: List of ProjectMembers
 
 ```
+![](docs/server_structure.png)
 
 
 
