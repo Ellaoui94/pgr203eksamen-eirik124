@@ -28,6 +28,11 @@ public class AssignedProjectGetController implements ControllerMcControllerface 
                     "<p> " + projectMemberToProject.getDescription() + "</p><br><br>" +
                     "Assigned to: " + projectMemberToProject.getProjectMemberName() + "<br> " +
                     "Status: " + projectMemberToProject.getStatus() + "<br><br><br>" +
+                    "<select value='"+ projectMemberToProject.getStatus() +"' onchange='/api/updateStatus'> " +
+                    "<option value='to do'>To do </option>" +
+                    "<option value='in progress'>In progress </option>" +
+                    "<option value='done'>Done</option>" +
+                    "</select>" +
                     "</div>";
         }
 

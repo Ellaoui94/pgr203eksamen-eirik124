@@ -15,6 +15,57 @@ Link til github actions
 [Github Actions](https://github.com/kristiania/pgr203eksamen-eirik124/actions)
 
 -----------------------------
+### UML Modeller
+
+#### Database struktur
+```plantuml
+entity Projects {
+    id
+    --
+    name
+    description
+    budget
+    status
+    project-member_id
+}
+
+entity ProjectMembers {
+    id
+    --
+    first_name
+    last_name
+    email
+    hourly_wage
+}
+
+entity Tasks {
+    id
+    --
+    name
+    description
+}
+
+entity ProjectAssignments {
+    project_id
+    project-member_id
+    --
+    hours_worked
+}
+
+Projects ||--o{ Tasks
+Projects ||--o{ ProjectAssignments
+ProjectMembers "ProjectManager" ||--|| Projects
+ProjectMembers ||--o{ ProjectAssignments
+```
+
+#### Server struktur
+
+![](docs/server_structure.png)
+
+
+-----------------------------
+
+-----------------------------
 ### Hvordan det bygges
 Baseres på programmet IntelliJ fremgangsmåte kan variere fra program til program
 
