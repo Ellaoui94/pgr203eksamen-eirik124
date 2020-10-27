@@ -1,0 +1,42 @@
+@startuml
+entity Projects {
+    id
+    --
+    name
+    description
+    budget
+    status
+    project-member_id
+}
+
+entity ProjectMembers {
+    id
+    --
+    first_name
+    last_name
+    email
+    hourly_wage
+}
+
+entity Tasks {
+    id
+    --
+    name
+    description
+}
+
+entity ProjectAssignments {
+    project_id
+    project-member_id
+    --
+    hours_worked
+}
+
+Projects ||--o{ Tasks
+Projects ||--o{ ProjectAssignments
+ProjectMembers "ProjectManager" ||--|| Projects
+ProjectMembers ||--o{ ProjectAssignments
+@enduml
+
+
+
