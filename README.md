@@ -65,7 +65,7 @@ Funksjonalitet
 - [ ] Avansert datamodell (mer enn 3 tabeller)
 - [ ] Avansert funksjonalitet (redigering av prosjektmedlemmer, statuskategorier, prosjekter)
 - [ ] Implementasjon av cookies for å konstruere sesjoner: https://tools.ietf.org/html/rfc6265#section-3
-- [ ] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
+- [X] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
 - [ ] God bruk av DAO-pattern
 - [ ] God bruk av Controller-pattern
