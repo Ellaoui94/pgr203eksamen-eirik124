@@ -34,6 +34,6 @@ entity ProjectAssignments {
 
 Projects ||--o{ Tasks
 Projects ||--o{ ProjectAssignments
-ProjectMembers "ProjectManager" ||--|| Projects
+ProjectMembers "ProjectManager" ||--o| Projects
 ProjectMembers ||--o{ ProjectAssignments
 @enduml
