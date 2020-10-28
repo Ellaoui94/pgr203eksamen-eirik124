@@ -1,6 +1,5 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.Project;
 import no.kristiania.database.Task;
 import no.kristiania.database.TaskDao;
 import no.kristiania.httpServer.HttpMessage;
@@ -9,7 +8,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class TaskGetController implements ControllerMcControllerface {
+public class TaskGetController implements HttpController {
     private TaskDao taskDao;
 
     public TaskGetController(TaskDao taskDao) {

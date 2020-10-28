@@ -4,7 +4,6 @@ import no.kristiania.database.Project;
 import no.kristiania.database.ProjectDao;
 import no.kristiania.httpServer.HttpMessage;
 import no.kristiania.httpServer.QueryString;
-import no.kristiania.httpServer.controllers.ControllerMcControllerface;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -12,7 +11,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-public class ProjectPostController implements ControllerMcControllerface {
+public class ProjectPostController implements HttpController {
     private ProjectDao projectDao;
 
     public ProjectPostController(ProjectDao projectDao) {

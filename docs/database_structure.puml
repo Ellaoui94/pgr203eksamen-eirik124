@@ -37,6 +37,3 @@ Projects ||--o{ ProjectAssignments
 ProjectMembers "ProjectManager" ||--|| Projects
 ProjectMembers ||--o{ ProjectAssignments
 @enduml
-
-
-

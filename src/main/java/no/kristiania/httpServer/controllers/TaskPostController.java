@@ -11,7 +11,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-public class TaskPostController implements ControllerMcControllerface {
+public class TaskPostController implements HttpController {
     private TaskDao taskDao;
 
     public TaskPostController(TaskDao taskDao) {

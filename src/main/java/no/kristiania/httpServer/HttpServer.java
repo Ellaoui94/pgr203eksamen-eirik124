@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class HttpServer {
     private TaskDao taskDao;
     private ProjectMemberToProjectDao projectMemberToProjectDao;
 
-    private Map<String, ControllerMcControllerface> controllers;
+    private Map<String, HttpController> controllers;
     private final ServerSocket serverSocket;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
@@ -89,19 +87,19 @@ public class HttpServer {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/api/projectMembers")) {
-                ControllerMcControllerface controller = controllers.get(requestPath);
+                HttpController controller = controllers.get(requestPath);
                 controller.handle(request, clientSocket);
             } else if(requestPath.equals("/api/projects")) {
-                ControllerMcControllerface controller = controllers.get(requestPath);
+                HttpController controller = controllers.get(requestPath);
                 controller.handle(request, clientSocket);
             } else if (requestPath.equals("/api/tasks")) {
-                ControllerMcControllerface controller = controllers.get(requestPath);
+                HttpController controller = controllers.get(requestPath);
                 controller.handle(request, clientSocket);
             } else if(requestPath.equals("/api/assignedProjects")) {
-                ControllerMcControllerface controller = controllers.get(requestPath);
+                HttpController controller = controllers.get(requestPath);
                 controller.handle(request, clientSocket);
             } else {
-                ControllerMcControllerface controller = controllers.get(requestPath);
+                HttpController controller = controllers.get(requestPath);
                 if (controller != null) {
                     controller.handle(request, clientSocket);
                 } else {
@@ -111,7 +109,7 @@ public class HttpServer {
         }
     }
 
-    private ControllerMcControllerface getController(String requestPath) {
+    private HttpController getController(String requestPath) {
         return controllers.get(requestPath);
     }
 

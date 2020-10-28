@@ -3,13 +3,12 @@ package no.kristiania.httpServer.controllers;
 import no.kristiania.database.Project;
 import no.kristiania.database.ProjectDao;
 import no.kristiania.httpServer.HttpMessage;
-import no.kristiania.httpServer.controllers.ControllerMcControllerface;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class ProjectGetController implements ControllerMcControllerface {
+public class ProjectGetController implements HttpController {
     private ProjectDao projectDao;
 
     public ProjectGetController(ProjectDao projectDao) {

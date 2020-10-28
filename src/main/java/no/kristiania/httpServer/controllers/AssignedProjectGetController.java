@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class AssignedProjectGetController implements ControllerMcControllerface {
+public class AssignedProjectGetController implements HttpController {
     private ProjectMemberToProjectDao projectMemberToProjectDao;
 
     public AssignedProjectGetController(ProjectMemberToProjectDao projectMemberToProjectDao) {
@@ -19,7 +19,6 @@ public class AssignedProjectGetController implements ControllerMcControllerface 
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "";
         for (ProjectMemberToProject projectMemberToProject : projectMemberToProjectDao.list()) {
-
 
             body += "<div class='project-card " + projectMemberToProject.getStatus() + "' id='"+ projectMemberToProject.getId() +"'>" +
                     "<h3>"+ projectMemberToProject.getProjectName() +"</h3>" +
@@ -35,7 +34,6 @@ public class AssignedProjectGetController implements ControllerMcControllerface 
                     "</select>" +
                     "</div>";
         }
-
 
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +

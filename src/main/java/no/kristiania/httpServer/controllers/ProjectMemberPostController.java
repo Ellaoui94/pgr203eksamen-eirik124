@@ -11,7 +11,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-public class ProjectMemberPostController implements ControllerMcControllerface {
+public class ProjectMemberPostController implements HttpController {
     private ProjectMemberDao projectMemberDao;
 
     public ProjectMemberPostController(ProjectMemberDao projectMemberDao) {

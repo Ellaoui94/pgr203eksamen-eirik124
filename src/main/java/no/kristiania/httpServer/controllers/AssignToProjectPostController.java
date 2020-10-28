@@ -1,6 +1,5 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.ProjectMember;
 import no.kristiania.database.ProjectMemberToProject;
 import no.kristiania.database.ProjectMemberToProjectDao;
 import no.kristiania.httpServer.HttpMessage;
@@ -12,7 +11,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-public class AssignToProjectPostController implements ControllerMcControllerface {
+public class AssignToProjectPostController implements HttpController {
     ProjectMemberToProjectDao projectMemberToProjectDao;
 
     public AssignToProjectPostController(ProjectMemberToProjectDao projectMemberToProjectDao) {

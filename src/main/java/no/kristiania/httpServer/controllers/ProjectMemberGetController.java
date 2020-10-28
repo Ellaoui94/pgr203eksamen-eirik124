@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class ProjectMemberGetController implements ControllerMcControllerface {
+public class ProjectMemberGetController implements HttpController {
     private ProjectMemberDao projectMemberDao;
 
     public ProjectMemberGetController(ProjectMemberDao projectMemberDao) {
