@@ -1,6 +1,6 @@
 package no.kristiania.database;
 
-public class ProjectMember {
+public class Member {
     private String lastName;
     private String firstName;
     private String email;

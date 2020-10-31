@@ -1,7 +1,7 @@
 package no.kristiania.httpServer;
 
-import no.kristiania.database.ProjectMember;
-import no.kristiania.database.ProjectMemberDao;
+import no.kristiania.database.Member;
+import no.kristiania.database.MemberDao;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,13 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,19 +95,19 @@ class HttpServerTest {
 
         assertEquals(200, client.getStatusCode());
         assertThat(server.getProjectMembers())
-                .extracting(ProjectMember::getFirstName)
+                .extracting(Member::getFirstName)
                 .contains("Eirik");
     }
 
     @Test
     void shouldReturnExistingProjectMembers() throws IOException, SQLException {
         HttpServer server = new HttpServer(10009, dataSource);
-        ProjectMemberDao projectMemberDao = new ProjectMemberDao(dataSource);
-        ProjectMember projectMember = new ProjectMember();
-        projectMember.setFirstName("Paal Anders");
-        projectMember.setLastName("Byenstuen");
-        projectMember.setEmail("pl4nders@gmail.com");
-        projectMemberDao.insert(projectMember);
+        MemberDao memberDao = new MemberDao(dataSource);
+        Member member = new Member();
+        member.setFirstName("Paal Anders");
+        member.setLastName("Byenstuen");
+        member.setEmail("pl4nders@gmail.com");
+        memberDao.insert(member);
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/projectMembers");
         assertThat(client.getResponseBody()).contains("<li>Paal Anders Byenstuen, pl4nders@gmail.com</li>");

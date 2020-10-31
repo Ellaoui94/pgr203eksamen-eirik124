@@ -5,17 +5,15 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Member;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Random;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProjectMemberDaoTest {
+class MemberDaoTest {
 
-    private ProjectMemberDao projectMemberDao;
+    private MemberDao memberDao;
     private final Random random = new Random();
 
     @BeforeEach
@@ -23,27 +21,27 @@ class ProjectMemberDaoTest {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         Flyway.configure().dataSource(dataSource).load().migrate();
-        projectMemberDao = new ProjectMemberDao(dataSource);
+        memberDao = new MemberDao(dataSource);
     }
 
     @Test
     void shouldListInsertedProjectMembers() throws SQLException {
-        ProjectMember projectMember1 = exampleProjectMember();
-        ProjectMember projectMember2 = exampleProjectMember();
-        projectMemberDao.insert(projectMember1);
-        projectMemberDao.insert(projectMember2);
-        assertThat(projectMemberDao.list())
-                .extracting(ProjectMember::getFirstName)
-                .contains(projectMember1.getFirstName(), projectMember2.getFirstName());
+        Member member1 = exampleProjectMember();
+        Member member2 = exampleProjectMember();
+        memberDao.insert(member1);
+        memberDao.insert(member2);
+        assertThat(memberDao.list())
+                .extracting(Member::getFirstName)
+                .contains(member1.getFirstName(), member2.getFirstName());
     }
 
-    private ProjectMember exampleProjectMember() {
-        ProjectMember projectMember = new ProjectMember();
-        projectMember.setFirstName(exampleProjectMemberFirstName());
-        projectMember.setLastName(exampleProjectMemberLastName());
-        projectMember.setEmail(exampleProjectMemberEmail());
+    private Member exampleProjectMember() {
+        Member member = new Member();
+        member.setFirstName(exampleProjectMemberFirstName());
+        member.setLastName(exampleProjectMemberLastName());
+        member.setEmail(exampleProjectMemberEmail());
 
-        return projectMember;
+        return member;
     }
 
     private String exampleProjectMemberFirstName() {

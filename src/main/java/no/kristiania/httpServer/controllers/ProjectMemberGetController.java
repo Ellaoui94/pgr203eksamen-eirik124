@@ -1,7 +1,7 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.ProjectMember;
-import no.kristiania.database.ProjectMemberDao;
+import no.kristiania.database.Member;
+import no.kristiania.database.MemberDao;
 import no.kristiania.httpServer.HttpMessage;
 
 import java.io.IOException;
@@ -9,18 +9,18 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class ProjectMemberGetController implements HttpController {
-    private ProjectMemberDao projectMemberDao;
+    private MemberDao memberDao;
 
-    public ProjectMemberGetController(ProjectMemberDao projectMemberDao) {
-        this.projectMemberDao = projectMemberDao;
+    public ProjectMemberGetController(MemberDao memberDao) {
+        this.memberDao = memberDao;
     }
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
-        for (ProjectMember projectMember : projectMemberDao.list()) {
-            body += "<li>" + projectMember.getFirstName() + " " + projectMember.getLastName() +
-                    ", " + projectMember.getEmail() + "</li>";
+        for (Member member : memberDao.list()) {
+            body += "<li>" + member.getFirstName() + " " + member.getLastName() +
+                    ", " + member.getEmail() + "</li>";
         }
         body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +

@@ -1,7 +1,7 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.ProjectMemberToProject;
-import no.kristiania.database.ProjectMemberToProjectDao;
+import no.kristiania.database.MemberToProject;
+import no.kristiania.database.MemberToProjectDao;
 import no.kristiania.httpServer.HttpMessage;
 
 import java.io.IOException;
@@ -9,25 +9,25 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class AssignedProjectGetController implements HttpController {
-    private ProjectMemberToProjectDao projectMemberToProjectDao;
+    private MemberToProjectDao memberToProjectDao;
 
-    public AssignedProjectGetController(ProjectMemberToProjectDao projectMemberToProjectDao) {
-        this.projectMemberToProjectDao = projectMemberToProjectDao;
+    public AssignedProjectGetController(MemberToProjectDao memberToProjectDao) {
+        this.memberToProjectDao = memberToProjectDao;
     }
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "";
-        for (ProjectMemberToProject projectMemberToProject : projectMemberToProjectDao.list()) {
+        for (MemberToProject memberToProject : memberToProjectDao.list()) {
 
-            body += "<div class='project-card " + projectMemberToProject.getStatus() + "' id='"+ projectMemberToProject.getId() +"'>" +
-                    "<h3>"+ projectMemberToProject.getProjectName() +"</h3>" +
-                    "<h5>Task: " + projectMemberToProject.getTaskName() + "</h5>" +
+            body += "<div class='project-card " + memberToProject.getStatus() + "' id='"+ memberToProject.getId() +"'>" +
+                    "<h3>"+ memberToProject.getProjectName() +"</h3>" +
+                    "<h5>Task: " + memberToProject.getTaskName() + "</h5>" +
                     "<b>Description:</b><br>" +
-                    "<p> " + projectMemberToProject.getDescription() + "</p><br><br>" +
-                    "Assigned to: " + projectMemberToProject.getProjectMemberName() + "<br> " +
-                    "Status: " + projectMemberToProject.getStatus() + "<br><br><br>" +
-                    "<select value='"+ projectMemberToProject.getStatus() +"' onchange='/api/updateStatus'> " +
+                    "<p> " + memberToProject.getDescription() + "</p><br><br>" +
+                    "Assigned to: " + memberToProject.getProjectMemberName() + "<br> " +
+                    "Status: " + memberToProject.getStatus() + "<br><br><br>" +
+                    "<select value='"+ memberToProject.getStatus() +"' onchange='/api/updateStatus'> " +
                     "<option value='to do'>To do </option>" +
                     "<option value='in progress'>In progress </option>" +
                     "<option value='done'>Done</option>" +

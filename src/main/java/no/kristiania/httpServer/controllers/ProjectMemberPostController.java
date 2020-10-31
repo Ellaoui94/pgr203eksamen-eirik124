@@ -1,7 +1,7 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.ProjectMember;
-import no.kristiania.database.ProjectMemberDao;
+import no.kristiania.database.Member;
+import no.kristiania.database.MemberDao;
 import no.kristiania.httpServer.HttpMessage;
 import no.kristiania.httpServer.QueryString;
 
@@ -12,10 +12,10 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class ProjectMemberPostController implements HttpController {
-    private ProjectMemberDao projectMemberDao;
+    private MemberDao memberDao;
 
-    public ProjectMemberPostController(ProjectMemberDao projectMemberDao) {
-        this.projectMemberDao = projectMemberDao;
+    public ProjectMemberPostController(MemberDao memberDao) {
+        this.memberDao = memberDao;
     }
 
     @Override
@@ -23,12 +23,12 @@ public class ProjectMemberPostController implements HttpController {
         QueryString requestParameter = new QueryString(request.getBody());
 
 
-        ProjectMember projectMember = new ProjectMember();
-        projectMember.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
-        projectMember.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
-        projectMember.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
-        projectMemberDao.insert(projectMember);
-        System.out.println(projectMember.getFirstName());
+        Member member = new Member();
+        member.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
+        member.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
+        member.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
+        memberDao.insert(member);
+        System.out.println(member.getFirstName());
 
         String body = "Okay";
         String response = "HTTP/1.1 200 OK\r\n" +

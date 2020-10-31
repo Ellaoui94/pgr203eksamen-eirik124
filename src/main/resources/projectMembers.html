@@ -8,7 +8,7 @@
 <body>
 <h1>List of added project members</h1>
 
-<div id="projectMembers"></div>
+<div id="members"></div>
 
 <div>
     <ul>
@@ -19,11 +19,11 @@
 </div>
 </body>
 <script>
-    fetch("/api/projectMembers")
+    fetch("/api/members")
         .then(function(response) {
             return response.text();
         }).then(function(text) {
-        document.getElementById("projectMembers").innerHTML = text;
+        document.getElementById("members").innerHTML = text;
     });
 </script>
 </html>

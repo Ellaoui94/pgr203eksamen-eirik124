@@ -1,7 +1,7 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.ProjectMemberToProject;
-import no.kristiania.database.ProjectMemberToProjectDao;
+import no.kristiania.database.MemberToProject;
+import no.kristiania.database.MemberToProjectDao;
 import no.kristiania.httpServer.HttpMessage;
 import no.kristiania.httpServer.QueryString;
 
@@ -12,10 +12,10 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class AssignToProjectPostController implements HttpController {
-    ProjectMemberToProjectDao projectMemberToProjectDao;
+    MemberToProjectDao memberToProjectDao;
 
-    public AssignToProjectPostController(ProjectMemberToProjectDao projectMemberToProjectDao) {
-        this.projectMemberToProjectDao = projectMemberToProjectDao;
+    public AssignToProjectPostController(MemberToProjectDao memberToProjectDao) {
+        this.memberToProjectDao = memberToProjectDao;
     }
 
     @Override
@@ -23,13 +23,13 @@ public class AssignToProjectPostController implements HttpController {
             QueryString requestParameter = new QueryString(request.getBody());
 
 
-            ProjectMemberToProject projectMemberToProject = new ProjectMemberToProject();
-            projectMemberToProject.setProjectName(URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name()));
-            projectMemberToProject.setProjectMemberName(URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name()));
-            projectMemberToProject.setTaskName(URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name()));
-            projectMemberToProject.setStatus(URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name()));
-            projectMemberToProject.setDescription(URLDecoder.decode(requestParameter.getParameter("description"), StandardCharsets.UTF_8.name()));
-            projectMemberToProjectDao.insert(projectMemberToProject);
+            MemberToProject memberToProject = new MemberToProject();
+            memberToProject.setProjectName(URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name()));
+            memberToProject.setProjectMemberName(URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name()));
+            memberToProject.setTaskName(URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name()));
+            memberToProject.setStatus(URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name()));
+            memberToProject.setDescription(URLDecoder.decode(requestParameter.getParameter("description"), StandardCharsets.UTF_8.name()));
+            memberToProjectDao.insert(memberToProject);
 
             String body = "Okay";
             String response = "HTTP/1.1 200 OK\r\n" +

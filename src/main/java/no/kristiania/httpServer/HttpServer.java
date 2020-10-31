@@ -22,31 +22,31 @@ import java.util.Properties;
 public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
-    private ProjectMemberDao projectMemberDao;
+    private MemberDao memberDao;
     private ProjectDao projectDao;
     private TaskDao taskDao;
-    private ProjectMemberToProjectDao projectMemberToProjectDao;
+    private MemberToProjectDao memberToProjectDao;
 
     private Map<String, HttpController> controllers;
     private final ServerSocket serverSocket;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
-        projectMemberDao = new ProjectMemberDao(dataSource);
+        memberDao = new MemberDao(dataSource);
         projectDao = new ProjectDao(dataSource);
         taskDao = new TaskDao(dataSource);
-        projectMemberToProjectDao = new ProjectMemberToProjectDao(dataSource);
+        memberToProjectDao = new MemberToProjectDao(dataSource);
 
 
         controllers = Map.of(
                 "/api/newProject", new ProjectPostController(projectDao),
                 "/api/projects", new ProjectGetController(projectDao),
-                "/api/projectMembers", new ProjectMemberGetController(projectMemberDao),
-                "/api/newProjectMember", new ProjectMemberPostController(projectMemberDao),
-                "/api/projectMemberList", new ProjectMemberListGetController(projectMemberDao),
+                "/api/projectMembers", new ProjectMemberGetController(memberDao),
+                "/api/newProjectMember", new ProjectMemberPostController(memberDao),
+                "/api/projectMemberList", new ProjectMemberListGetController(memberDao),
                 "/api/newTask", new TaskPostController(taskDao),
                 "/api/tasks", new TaskGetController(taskDao),
-                "/api/assignToProject", new AssignToProjectPostController(projectMemberToProjectDao),
-                "/api/assignedProjects", new AssignedProjectGetController(projectMemberToProjectDao)
+                "/api/assignToProject", new AssignToProjectPostController(memberToProjectDao),
+                "/api/assignedProjects", new AssignedProjectGetController(memberToProjectDao)
         );
 
         serverSocket = new ServerSocket(port);
@@ -192,7 +192,7 @@ public class HttpServer {
     }
 
 
-    public List<ProjectMember> getProjectMembers() throws SQLException {
-        return projectMemberDao.list();
+    public List<Member> getProjectMembers() throws SQLException {
+        return memberDao.list();
     }
 }
