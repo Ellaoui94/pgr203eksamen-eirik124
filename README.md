@@ -12,30 +12,39 @@ Til eksamen i PGR203 Avansert Java har vi laget en webapplikasjon som kan lagre 
 
 Programmet kan brukes ved å besøke localhost:8080 i nettleseren. Her kan du velge member, project, task, og endre status på oppgaver.
 
+### Arbeidsform
+Arbeidet med innlevering 1-3 foregikk i stor grad som testdrevet par(trio)-programmering over Discord, noe som fungerte veldig bra. Eksamensoppgaven krevde derimot at vi måtte utforske temaet enda dypere, og vi begynte derfor å jobbe mer fysisk sammen. Istedenfor at vi fordelte issues mellom oss, så fokuserte alle tre på ett og ett issue, i hovedsak på samme maskin. Derfor fremkommer commitloggen ganske misvisende når det kommer til deltakelse i prosjektet. [Projects-tabben](https://github.com/kristiania/pgr203eksamen-eirik124/projects/1) er en bedre representasjon av arbeidsfordelingen enn commitloggen.
 
-### Github Actions
+Link til par(trio)-programmeringsvideo:
+[Parprogrammerings-video](https://youtu.be/t6ZQ8bYZdlo)
+
+Link til pull request som viser hvordan vi jobbet sammen over Discord på innlevering 2:
+[pgr203innlevering2-eirik124/pull/1](https://github.com/kristiania/pgr203innlevering2-eirik124/pull/1)
+
+
+## Github Actions
 Link til github actions
 [Github Actions](https://github.com/kristiania/pgr203eksamen-eirik124/actions)
 
 -----------------------------
-### UML Modeller
+## UML Modeller
 
-#### Database struktur
+### Database struktur
 
 ![](docs/database_structure.png)
 
-#### Server struktur
+### Server struktur
 
 ![](docs/server_structure.png)
 
 -----------------------------
-### Hvordan det bygges
+## Hvordan det bygges
 Baseres på programmet IntelliJ fremgangsmåte kan variere fra program til program
 
 Man bygger .jar-filen ved å velge View -> Tool Windows -> Maven. Da åpnes det et Maven-vindu under ```Lifecycle```. Man velger så ```Package``` og deretter kjører den pakking og bygging på et par sekunder.
 
 -----------------------------
-### Hvordan det kjøres
+## Hvordan det kjøres
 
 Vær sikker på at du har en PostgreSQL-database satt opp som er mulig å koble seg til. Deretter lager du en ```pgr203.properties``` som skal inneholde følgende
 ```
