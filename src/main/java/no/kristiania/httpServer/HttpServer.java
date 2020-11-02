@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
-import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -46,7 +43,8 @@ public class HttpServer {
                 "/api/newProjectMember", new MemberController(memberDao),
                 "/api/projectMemberList", new MemberController(memberDao),
                 "/api/newTask", new TaskController(taskDao),
-                "/api/tasks", new TaskController(taskDao)
+                "/api/tasks", new TaskController(taskDao),
+                "/echo", new EchoController()
         );
 
         serverSocket = new ServerSocket(port);
@@ -81,52 +79,15 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
 
-
         HttpController controller = controllers.get(requestPath);
             if (controller != null) {
                 controller.handle(requestMethod, request, clientSocket, clientSocket.getOutputStream());
-            } else if (requestPath.equals("/echo")) {
-            handleEchoRequest(clientSocket, requestTarget, questionPos);
-            } else {
-                handleFileRequest(clientSocket, requestPath);
+            }  else {
+                handleFileRequest(clientSocket, requestPath, clientSocket.getOutputStream());
             }
-
-
-
-     /*   if (requestMethod.equals("POST")) {
-            getController(requestPath).handle("POST", request, clientSocket);
-
-        } else {
-             else if (requestPath.equals("/api/projectMembers")) {
-                HttpController controller = controllers.get(requestPath);
-                controller.handle(request, clientSocket);
-            } else if(requestPath.equals("/api/projects")) {
-                HttpController controller = controllers.get(requestPath);
-                controller.handle(request, clientSocket);
-            } else if (requestPath.equals("/api/tasks")) {
-                HttpController controller = controllers.get(requestPath);
-                controller.handle(request, clientSocket);
-            } else if(requestPath.equals("/api/assignedProjects")) {
-                HttpController controller = controllers.get(requestPath);
-                controller.handle(request, clientSocket);
-            } else {
-                HttpController controller = controllers.get(requestPath);
-                if (controller != null) {
-                    controller.handle(request, clientSocket);
-                } else {
-                    handleFileRequest(clientSocket, requestPath);
-                }
-            }
-        }*/
-
-
     }
 
-    private HttpController getController(String requestPath) {
-        return controllers.get(requestPath);
-    }
-
-    private void handleFileRequest(Socket clientSocket, String requestPath) throws IOException {
+    private void handleFileRequest(Socket clientSocket, String requestPath, OutputStream outputStream) throws IOException {
         try (InputStream inputStream = getClass().getResourceAsStream(requestPath)) {
             if (inputStream == null) {
                 String body = requestPath + " does not exist";
@@ -139,6 +100,13 @@ public class HttpServer {
                 clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
                 return;
             }
+            if (requestPath.equals("/")) {
+                outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
+                        "Location: /index.html\r\n" +
+                        "Connection: close\r\n" +
+                        "\r\n").getBytes("UTF-8"));
+            }
+
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             inputStream.transferTo(buffer);
 
@@ -164,26 +132,7 @@ public class HttpServer {
 
 
 
-    private void handleEchoRequest(Socket clientSocket, String requestTarget, int questionPos) throws IOException {
-        String statusCode = "200";
-        String body = "Hello <strong>World</strong>!";
-        if (questionPos != -1) {
-            QueryString queryString = new QueryString(requestTarget.substring(questionPos + 1));
-            if (queryString.getParameter("status") != null) {
-                statusCode = queryString.getParameter("status");
-            }
-            if (queryString.getParameter("body") != null) {
-                body = queryString.getParameter("body");
-            }
-        }
-        String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
-                "Content-Type: text/plain\r\n" +
-                "\r\n" +
-                body;
 
-        clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
-    }
 
     public static void main(String[] args) throws IOException {
         Properties properties = new Properties();
