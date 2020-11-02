@@ -38,15 +38,15 @@ public class HttpServer {
 
 
         controllers = Map.of(
-                "/api/newProject", new ProjectPostController(projectDao),
-                "/api/projects", new ProjectGetController(projectDao),
-                "/api/projectMembers", new ProjectMemberGetController(memberDao),
-                "/api/newProjectMember", new ProjectMemberPostController(memberDao),
-                "/api/projectMemberList", new ProjectMemberListGetController(memberDao),
-                "/api/newTask", new TaskPostController(taskDao),
-                "/api/tasks", new TaskGetController(taskDao),
-                "/api/assignToProject", new AssignToProjectPostController(memberToProjectDao),
-                "/api/assignedProjects", new AssignedProjectGetController(memberToProjectDao)
+                "/api/newProject", new ProjectController(projectDao),
+                "/api/projects", new ProjectController(projectDao),
+                "/api/assignToProject", new AssignToProjectController(memberToProjectDao),
+                "/api/assignedProjects", new AssignToProjectController(memberToProjectDao),
+                "/api/members", new MemberController(memberDao),
+                "/api/newProjectMember", new MemberController(memberDao),
+                "/api/projectMemberList", new MemberController(memberDao),
+                "/api/newTask", new TaskController(taskDao),
+                "/api/tasks", new TaskController(taskDao)
         );
 
         serverSocket = new ServerSocket(port);
@@ -80,13 +80,24 @@ public class HttpServer {
 
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
-        if (requestMethod.equals("POST")) {
-            getController(requestPath).handle(request, clientSocket);
+
+
+        HttpController controller = controllers.get(requestPath);
+            if (controller != null) {
+                controller.handle(requestMethod, request, clientSocket, clientSocket.getOutputStream());
+            } else if (requestPath.equals("/echo")) {
+            handleEchoRequest(clientSocket, requestTarget, questionPos);
+            } else {
+                handleFileRequest(clientSocket, requestPath);
+            }
+
+
+
+     /*   if (requestMethod.equals("POST")) {
+            getController(requestPath).handle("POST", request, clientSocket);
 
         } else {
-            if (requestPath.equals("/echo")) {
-                handleEchoRequest(clientSocket, requestTarget, questionPos);
-            } else if (requestPath.equals("/api/projectMembers")) {
+             else if (requestPath.equals("/api/projectMembers")) {
                 HttpController controller = controllers.get(requestPath);
                 controller.handle(request, clientSocket);
             } else if(requestPath.equals("/api/projects")) {
@@ -106,7 +117,9 @@ public class HttpServer {
                     handleFileRequest(clientSocket, requestPath);
                 }
             }
-        }
+        }*/
+
+
     }
 
     private HttpController getController(String requestPath) {
