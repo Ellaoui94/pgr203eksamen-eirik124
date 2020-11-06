@@ -88,9 +88,9 @@ Funksjonalitet
 - [X] Programmet kan liste prosjektdeltagere fra databasen
 - [X] Programmet lar bruker opprette nye prosjektdeltagere i databasen
 - [X] Programmet kan opprette og liste prosjektoppgaver fra databasen
-- [ ] Programmet lar bruker tildele prosjektdeltagere til oppgaver
+- [X] Programmet lar bruker tildele prosjektdeltagere til oppgaver
 - [ ] Flere prosjektdeltagere kan tildeles til samme oppgave
-- [ ] Programmet lar bruker endre status på en oppgave
+- [X] Programmet lar bruker endre status på en oppgave
 
 ### Ekstra poeng sjekklist
 - [ ] Håndtering av request target "/"
@@ -102,7 +102,7 @@ Funksjonalitet
 - [ ] God bruk av DAO-pattern
 - [ ] God bruk av Controller-pattern
 - [X] Korrekt håndtering av norske tegn i HTTP
-- [ ] Link til video med god demonstrasjon av ping-pong programmering
+- [X] Link til video med god demonstrasjon av ping-pong programmering
 - [X] Automatisk rapportering av testdekning i Github Actions
 - [X] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
 - [ ] Annet
