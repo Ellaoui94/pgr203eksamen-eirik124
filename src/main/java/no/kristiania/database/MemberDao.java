@@ -1,6 +1,9 @@
 package no.kristiania.database;
 
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +16,18 @@ public class MemberDao {
         this.dataSource = dataSource;
     }
 
-    public void insert(Member member) throws SQLException {
+    public void insert(Member member) throws SQLException, FileNotFoundException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO projectmembers (first_name, last_name, email) VALUES (?, ?, ?)",
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO projectmembers (first_name, last_name, email, img_name, img_bytea) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
+                File file = new File(member.getImageName());
+                FileInputStream fis = new FileInputStream(file);
                 statement.setString(1, member.getFirstName());
                 statement.setString(2, member.getLastName());
                 statement.setString(3, member.getEmail());
+                statement.setString(4, member.getImageName());
+                statement.setBinaryStream(5, fis, (int)file.length());
                 statement.executeUpdate();
 
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -52,6 +59,7 @@ public class MemberDao {
         member.setFirstName(rs.getString("first_name"));
         member.setLastName(rs.getString("last_name"));
         member.setEmail(rs.getString("email"));
+        member.setEmail(rs.getString("avatar"));
         return member;
     }
 

@@ -2,5 +2,7 @@ create table projectmembers (
     id serial primary key,
     first_name varchar(100) not null,
     last_name varchar(100),
-    email varchar(100) unique
+    email varchar(100) unique,
+    img_name varchar(200),
+    img_bytea bytea
 );

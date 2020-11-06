@@ -5,6 +5,8 @@ public class Member {
     private String firstName;
     private String email;
     private Long id;
+    private String image;
+    private String imageName;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -22,6 +24,12 @@ public class Member {
         this.id = id;
     }
 
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+
+
     public String getFirstName() {
         return firstName;
     }
@@ -36,5 +44,9 @@ public class Member {
 
     public Long getId() {
         return id;
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 }

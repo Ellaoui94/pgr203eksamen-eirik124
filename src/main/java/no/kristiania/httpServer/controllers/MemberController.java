@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
+import static java.net.URLDecoder.decode;
+
 public class MemberController implements HttpController {
     private String body;
     private MemberDao dao;
@@ -33,9 +35,10 @@ public class MemberController implements HttpController {
 
 
                 Member member = new Member();
-                member.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
-                member.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
-                member.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
+                member.setFirstName(decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
+                member.setLastName(decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
+                member.setEmail(decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
+                member.setImageName(requestParameter.getParameter("avatar"));
                 dao.insert(member);
                 System.out.println(member.getFirstName());
 
