@@ -22,18 +22,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
 
-    private JdbcDataSource dataSource;
+    private JdbcDataSource dataSource = TestDatabaseSource.dataSource();
     private HttpServer server;
     private MemberDao memberDao;
     private ProjectDao projectDao;
     private TaskDao taskDao;
 
-    @BeforeEach
-    void setUp() throws IOException {
-        dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
-        Flyway.configure().dataSource(dataSource).load().migrate();
-    }
 
     @Test
     void shouldReturnSuccessfulStatusCode() throws IOException {
@@ -51,7 +45,7 @@ class HttpServerTest {
         assertEquals(404, client.getStatusCode());
     }
 
-    @Test
+  /*  @Test
     void shouldReturnContentLength() throws IOException {
         HttpServer server = new HttpServer(0);
         server.start();
@@ -65,7 +59,7 @@ class HttpServerTest {
         server.start();
         HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?body=HelloWorld");
         assertEquals("HelloWorld", client.getResponseBody());
-    }
+    }*/
 
     @Test
     void shouldReturnFileFromDisk() throws IOException {
