@@ -8,6 +8,8 @@ public class MemberToProject {
     private Long id;
     private String taskName;
     private String description;
+    private int projectId;
+    private int taskId;
 
     //GETTERS
 
@@ -60,5 +62,21 @@ public class MemberToProject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    public int getTaskId() {
+        return taskId;
     }
 }

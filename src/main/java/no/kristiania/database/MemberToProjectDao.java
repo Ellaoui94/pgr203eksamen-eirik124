@@ -18,9 +18,10 @@ public class MemberToProjectDao {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO projectmember_to_project (project_name, projectmember_name, task_name, status, description) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
-                statement.setString(1, memberToProject.getProjectName());
+
+                statement.setInt(1, memberToProject.getProjectId());
                 statement.setString(2, memberToProject.getProjectMemberName());
-                statement.setString(3, memberToProject.getTaskName());
+                statement.setInt(3, memberToProject.getTaskId());
                 statement.setString(4, memberToProject.getStatus());
                 statement.setString(5, memberToProject.getDescription());
                 statement.executeUpdate();
@@ -61,9 +62,11 @@ public class MemberToProjectDao {
     private MemberToProject mapRowToProjectMemberToProject(ResultSet rs) throws SQLException {
         MemberToProject memberToProject = new MemberToProject();
         memberToProject.setId(rs.getLong("id"));
-        memberToProject.setProjectName(rs.getString("project_name"));
+        memberToProject.setProjectId(rs.getInt("project_name"));
+        memberToProject.setProjectName(rs.getString("p_name"));
         memberToProject.setProjectMemberName(rs.getString("projectmember_name"));
-        memberToProject.setTaskName(rs.getString("task_name"));
+        memberToProject.setTaskId(rs.getInt("task_name"));
+        memberToProject.setTaskName(rs.getString("name"));
         memberToProject.setStatus(rs.getString("status"));
         memberToProject.setDescription(rs.getString("description"));
         return memberToProject;
@@ -71,7 +74,7 @@ public class MemberToProjectDao {
 
     public List<MemberToProject> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from projectmember_to_project")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT task.id, task.name, project.p_name, task_name, project_name, projectmember_name, status, description FROM task INNER JOIN projectmember_to_project ON  projectmember_to_project.task_name = task.id INNER JOIN project ON projectmember_to_project.project_name = project.id")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     List<MemberToProject> memberToProjects = new ArrayList<>();
                     while (rs.next()) {

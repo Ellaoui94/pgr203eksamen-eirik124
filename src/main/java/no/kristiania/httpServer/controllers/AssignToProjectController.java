@@ -73,10 +73,16 @@ public class AssignToProjectController implements HttpController {
     }
 
     private void executeSqlStatement(QueryString requestParameter) throws SQLException, UnsupportedEncodingException {
+        String taskName = URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name());
+        int taskId = Integer.parseInt(taskName);
+        String projectName = URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name());
+        int projectId = Integer.parseInt(projectName);
+
+
         MemberToProject memberToProject = new MemberToProject();
-        memberToProject.setProjectName(URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name()));
+        memberToProject.setProjectId(projectId);
         memberToProject.setProjectMemberName(URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name()));
-        memberToProject.setTaskName(URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name()));
+        memberToProject.setTaskId(taskId);
         memberToProject.setStatus(URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name()));
         memberToProject.setDescription(URLDecoder.decode(requestParameter.getParameter("description"), StandardCharsets.UTF_8.name()));
         dao.insert(memberToProject);

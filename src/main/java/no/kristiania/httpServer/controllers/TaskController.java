@@ -62,7 +62,7 @@ public class TaskController implements HttpController {
 
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option id='" + dao.getId() + "'>" + dao.getName() + "</option> "))
+                .map(dao -> String.format("<option value='"+ dao.getId() +"' id='" + dao.getId() + "'>" + dao.getName() + "</option> "))
                 .collect(Collectors.joining(""));
     }
 }
