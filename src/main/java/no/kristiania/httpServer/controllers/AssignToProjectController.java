@@ -29,12 +29,14 @@ public class AssignToProjectController implements HttpController {
 
         try {
             if (requestMethod.equals("POST")) {
-                String requestLine = request.getStartLine();
-                String requestTarget = requestLine.split(" ")[1];
+                String requestTarget = RequestTarget.requestTarget(request);
                 QueryString requestParameter = new QueryString(request.getBody());
 
                 if (requestTarget.equals("/api/updateStatus")) {
                     updateStatus(requestParameter);
+                    redirect = "/assignedProjects.html";
+                } else if (requestTarget.equals("/api/deleteAssignment")) {
+                    deleteAssignment(requestParameter);
                     redirect = "/assignedProjects.html";
                 } else {
                     executeSqlStatement(requestParameter);
@@ -97,6 +99,12 @@ public class AssignToProjectController implements HttpController {
         dao.updateStatus(status, id);
     }
 
+    private void deleteAssignment(QueryString parameters) throws SQLException {
+        String idString = parameters.getParameter("delete-id");
+        long id = Long.parseLong(idString);
+        dao.deleteAssignment(id);
+    }
+
 
     public String getBody() throws SQLException {
         return dao.list().stream()
@@ -115,6 +123,11 @@ public class AssignToProjectController implements HttpController {
                         "<option value='done'>Done</option>" +
                         "</select>" +
                         "<button> Update Status</button>" +
+                        "</form>" +
+                        "<br><br>" +
+                        "<form method='POST' action='/api/deleteAssignment'>" +
+                        "<input type='hidden' name='delete-id' value='"+ dao.getId() +"'>" +
+                        "<button> Remove assignment</button>" +
                         "</form>" +
                         "</div>"))
                 .collect(Collectors.joining(""));

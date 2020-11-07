@@ -59,6 +59,15 @@ public class MemberToProjectDao {
         }
     }
 
+    public void deleteAssignment(long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("DELETE FROM projectmember_to_project WHERE id = ?")) {
+                statement.setLong(1,id);
+                statement.executeUpdate();
+            }
+        }
+    }
+
     private MemberToProject mapRowToProjectMemberToProject(ResultSet rs) throws SQLException {
         MemberToProject memberToProject = new MemberToProject();
         memberToProject.setId(rs.getLong("id"));
@@ -87,4 +96,6 @@ public class MemberToProjectDao {
             }
         }
     }
+
+
 }

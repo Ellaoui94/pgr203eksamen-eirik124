@@ -54,6 +54,7 @@ public class ProjectManagerServer {
         server.addController("/api/assignToProject", new AssignToProjectController(memberToProjectDao));
         server.addController("/api/assignedProjects", new AssignToProjectController(memberToProjectDao));
         server.addController("/api/updateStatus", new AssignToProjectController(memberToProjectDao));
+        server.addController("/api/deleteAssignment", new AssignToProjectController(memberToProjectDao));
     }
 
     public static void main(String[] args) throws IOException {
