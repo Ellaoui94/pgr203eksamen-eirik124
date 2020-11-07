@@ -10,6 +10,9 @@ public class MemberToProject {
     private String description;
     private int projectId;
     private int taskId;
+    private String firstName;
+    private String lastName;
+    private int memberNameId;
 
     //GETTERS
 
@@ -17,8 +20,16 @@ public class MemberToProject {
         return status;
     }
 
-    public String getProjectMemberName() {
-        return projectMemberName;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getMemberNameId() {
+        return memberNameId;
     }
 
     public String getProjectName() {
@@ -37,15 +48,19 @@ public class MemberToProject {
         return description;
     }
 
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
     //SETTERS
 
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setProjectMemberName(String projectMemberName) {
-        this.projectMemberName = projectMemberName;
     }
 
     public void setStatus(String status) {
@@ -64,10 +79,6 @@ public class MemberToProject {
         this.description = description;
     }
 
-    public int getProjectId() {
-        return projectId;
-    }
-
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
@@ -76,7 +87,15 @@ public class MemberToProject {
         this.taskId = taskId;
     }
 
-    public int getTaskId() {
-        return taskId;
+    public void setProjectMemberFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setProjectMemberLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setNameId(int memberNameId) {
+        this.memberNameId = memberNameId;
     }
 }
