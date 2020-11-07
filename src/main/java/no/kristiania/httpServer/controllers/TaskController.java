@@ -7,6 +7,7 @@ import no.kristiania.httpServer.QueryString;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -26,10 +27,11 @@ public class TaskController implements HttpController {
         try {
             if (requestMethod.equals("POST")) {
                 QueryString requestParameter = new QueryString(request.getBody());
+                String requestTarget = RequestTarget.requestTarget(request);
 
-                Task task = new Task();
-                task.setName(URLDecoder.decode(requestParameter.getParameter("task_name"), StandardCharsets.UTF_8));
-                dao.insert(task);
+                if (requestTarget.equals("/api/updateTask")) {
+                    updateName(requestParameter);
+                }
 
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
                         "Location: /newTask.html\r\n" +
@@ -60,9 +62,22 @@ public class TaskController implements HttpController {
         }
     }
 
+    private void updateName(QueryString requestParameter) throws UnsupportedEncodingException, SQLException {
+        String name = URLDecoder.decode(requestParameter.getParameter("update-task-name"), StandardCharsets.UTF_8.name());
+        String idString = requestParameter.getParameter("task-name");
+        long id = Long.parseLong(idString);
+        dao.updateTask(name, id);
+    }
+
+    private void executeSqlStatement(QueryString requestParameter) throws SQLException {
+        Task task = new Task();
+        task.setName(URLDecoder.decode(requestParameter.getParameter("task_name"), StandardCharsets.UTF_8));
+        dao.insert(task);
+    }
+
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option id='" + dao.getId() + "'>" + dao.getName() + "</option> "))
+                .map(dao -> String.format("<option name='" + dao.getId() +"' value='"+ dao.getId() +"' id='" + dao.getId() + "'>" + dao.getName() + "</option> "))
                 .collect(Collectors.joining(""));
     }
 }

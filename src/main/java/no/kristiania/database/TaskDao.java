@@ -62,4 +62,14 @@ public class TaskDao {
             }
         }
     }
+
+    public void updateTask(String name, long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE task SET name = ? WHERE id=?")) {
+                statement.setString(1,name);
+                statement.setLong(2,id);
+                statement.executeUpdate();
+            }
+        }
+    }
 }

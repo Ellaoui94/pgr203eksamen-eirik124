@@ -91,7 +91,7 @@ public class HttpServer {
             }
             if (requestPath.equals("/")) {
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
-                        "Location: http://localhost:8080/index.html\r\n" +
+                        "Location: /index.html\r\n" +
                         "Connection: close\r\n" +
                         "\r\n").getBytes("UTF-8"));
             }

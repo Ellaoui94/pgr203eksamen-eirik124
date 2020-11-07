@@ -91,7 +91,7 @@ public class MemberController implements HttpController {
 
     public String getBodyList() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option value='"+ dao.getFirstName() +" " + dao.getLastName() +"'>" + dao.getFirstName() + " " + dao.getLastName() + "</option>"))
+                .map(dao -> String.format("<option value='"+ dao.getId() + "'>" + dao.getFirstName() + " " + dao.getLastName() + "</option>"))
                 .collect(Collectors.joining(""));
     }
 }

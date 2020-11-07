@@ -2,11 +2,7 @@
 entity Projects {
     id
     --
-    name
-    description
-    budget
-    status
-    project-member_id
+    project_name
 }
 
 entity ProjectMembers {
@@ -15,25 +11,25 @@ entity ProjectMembers {
     first_name
     last_name
     email
-    hourly_wage
 }
 
 entity Tasks {
     id
     --
     name
-    description
 }
 
-entity ProjectAssignments {
-    project_id
-    project-member_id
+entity ProjectMemberToProject {
+    id
     --
-    hours_worked
+    project_name
+    member_name
+    task_name
+    description
+    status
 }
 
-Projects ||--o{ Tasks
-Projects ||--o{ ProjectAssignments
-ProjectMembers "ProjectManager" ||--o| Projects
-ProjectMembers ||--o{ ProjectAssignments
+Projects ||--o{ ProjectMemberToProject
+ProjectMembers ||--o{ ProjectMemberToProject
+Tasks ||--o{ ProjectMemberToProject
 @enduml

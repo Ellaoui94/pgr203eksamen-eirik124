@@ -73,10 +73,18 @@ public class AssignToProjectController implements HttpController {
     }
 
     private void executeSqlStatement(QueryString requestParameter) throws SQLException, UnsupportedEncodingException {
+        String taskName = URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name());
+        int taskId = Integer.parseInt(taskName);
+        String projectName = URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name());
+        int projectId = Integer.parseInt(projectName);
+        String memberName = URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name());
+        int nameId = Integer.parseInt(memberName);
+
+
         MemberToProject memberToProject = new MemberToProject();
-        memberToProject.setProjectName(URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name()));
-        memberToProject.setProjectMemberName(URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name()));
-        memberToProject.setTaskName(URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name()));
+        memberToProject.setProjectId(projectId);
+        memberToProject.setNameId(nameId);
+        memberToProject.setTaskId(taskId);
         memberToProject.setStatus(URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name()));
         memberToProject.setDescription(URLDecoder.decode(requestParameter.getParameter("description"), StandardCharsets.UTF_8.name()));
         dao.insert(memberToProject);
@@ -97,7 +105,7 @@ public class AssignToProjectController implements HttpController {
                         "<h5>Task: " + dao.getTaskName() + "</h5>" +
                         "<b>Description:</b><br>" +
                         "<p> " + dao.getDescription() + "</p><br><br>" +
-                        "Assigned to: " + dao.getProjectMemberName() + "<br> " +
+                        "Assigned to: " + dao.getFirstName() + " " + dao.getLastName() + "<br> " +
                         "Status: " + dao.getStatus() + "<br><br><br>" +
                         "<form method='POST' action='/api/updateStatus'>" +
                         "<input type='hidden' name='id' value='"+ dao.getId() +"'>" +

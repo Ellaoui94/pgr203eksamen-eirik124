@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update task name</title>
+</head>
+<body>
+<h1>Update Task Name</h1>
+<form method="post" action="/api/updateTask">
+    <select name="task-name" id="task-name"></select><br>
+    <input type="text" name="update-task-name" placeholder="New task name"><br>
+    <button>Update</button>
+</form>
+</body>
+<script>
+    fetch("/api/tasks")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("task-name").innerHTML = text;
+    });
+</script>
+</html>

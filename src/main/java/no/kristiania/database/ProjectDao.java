@@ -29,13 +29,13 @@ public class ProjectDao {
     private Project mapRowToProject(ResultSet rs) throws SQLException {
         Project project = new Project();
         project.setId(rs.getLong("id"));
-        project.setName(rs.getString("name"));
+        project.setName(rs.getString("p_name"));
         return project;
     }
 
     public void insert(Project project) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO project (name) VALUES (?)",
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO project (p_name) VALUES (?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, project.getName());
@@ -50,7 +50,7 @@ public class ProjectDao {
 
     public void updateName(String name, long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("UPDATE project SET name = ? WHERE id=?")) {
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE project SET p_name = ? WHERE id=?")) {
                 statement.setString(1,name);
                 statement.setLong(2,id);
                 statement.executeUpdate();
