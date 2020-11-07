@@ -19,6 +19,7 @@ public class ProjectController implements HttpController {
     private String body;
     private String redirect;
 
+
     public ProjectController(ProjectDao dao) {
         this.dao = dao;
     }
@@ -27,10 +28,8 @@ public class ProjectController implements HttpController {
     public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
         try {
             if (requestMethod.equals("POST")) {
-                String requestLine = request.getStartLine();
-                String requestTarget = requestLine.split(" ")[1];
                 QueryString requestParameter = new QueryString(request.getBody());
-
+                String requestTarget = RequestTarget.requestTarget(request);
                 if (requestTarget.equals("/api/updateProject")) {
                     updateName(requestParameter);
                     redirect = "/updateProject.html";
@@ -77,9 +76,9 @@ public class ProjectController implements HttpController {
         dao.insert(project);
     }
 
-    private void updateName(QueryString parameters) throws SQLException, UnsupportedEncodingException {
-        String name = URLDecoder.decode(parameters.getParameter("update-project-name"), StandardCharsets.UTF_8.name());
-        String idString = parameters.getParameter("project-name");
+    private void updateName(QueryString requestParameter) throws SQLException, UnsupportedEncodingException {
+        String name = URLDecoder.decode(requestParameter.getParameter("update-project-name"), StandardCharsets.UTF_8.name());
+        String idString = requestParameter.getParameter("project-name");
         long id = Long.parseLong(idString);
         dao.updateName(name, id);
     }
