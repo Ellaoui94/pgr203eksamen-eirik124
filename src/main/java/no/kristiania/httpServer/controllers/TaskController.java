@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class TaskController implements HttpController {
     private TaskDao dao;
     private String body;
+    private String redirect;
 
     public TaskController(TaskDao dao) {
         this.dao = dao;
@@ -31,10 +32,14 @@ public class TaskController implements HttpController {
 
                 if (requestTarget.equals("/api/updateTask")) {
                     updateName(requestParameter);
+                    redirect = "/updateTask.html";
+                } else {
+                    executeSqlStatement(requestParameter);
+                    redirect = "/newTask.html";
                 }
 
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
-                        "Location: /newTask.html\r\n" +
+                        "Location: "+ redirect +"\r\n" +
                         "Transfer-Encoding: chunked" +
                         "Connection: close\r\n" +
                         "\r\n").getBytes("UTF-8"));
