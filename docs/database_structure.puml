@@ -29,7 +29,14 @@ entity ProjectMemberToProject {
     status
 }
 
+entity Status {
+    id
+    --
+    status
+}
+
 Projects ||--o{ ProjectMemberToProject
 ProjectMembers ||--o{ ProjectMemberToProject
 Tasks ||--o{ ProjectMemberToProject
+Status ||--o{ ProjectMemberToProject
 @enduml

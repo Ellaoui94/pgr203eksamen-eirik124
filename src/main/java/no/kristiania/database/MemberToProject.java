@@ -13,6 +13,7 @@ public class MemberToProject {
     private String firstName;
     private String lastName;
     private int memberNameId;
+    private int statusId;
 
     //GETTERS
 
@@ -56,6 +57,10 @@ public class MemberToProject {
         return projectId;
     }
 
+    public int getStatusId() {
+        return statusId;
+    }
+
     //SETTERS
 
 
@@ -97,5 +102,9 @@ public class MemberToProject {
 
     public void setNameId(int memberNameId) {
         this.memberNameId = memberNameId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 }

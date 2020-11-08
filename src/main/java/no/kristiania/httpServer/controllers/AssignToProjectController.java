@@ -81,22 +81,25 @@ public class AssignToProjectController implements HttpController {
         int projectId = Integer.parseInt(projectName);
         String memberName = URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name());
         int nameId = Integer.parseInt(memberName);
+        String statusName = URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name());
+        int statusId = Integer.parseInt(statusName);
 
 
         MemberToProject memberToProject = new MemberToProject();
         memberToProject.setProjectId(projectId);
         memberToProject.setNameId(nameId);
         memberToProject.setTaskId(taskId);
-        memberToProject.setStatus(URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name()));
+        memberToProject.setStatusId(statusId);
         memberToProject.setDescription(URLDecoder.decode(requestParameter.getParameter("description"), StandardCharsets.UTF_8.name()));
         dao.insert(memberToProject);
     }
 
     private void updateStatus(QueryString parameters) throws SQLException {
         String status = parameters.getParameter("status_update");
+        int statusId = Integer.parseInt(status);
         String idString = parameters.getParameter("id");
         long id = Long.parseLong(idString);
-        dao.updateStatus(status, id);
+        dao.updateStatus(statusId, id);
     }
 
     private void deleteAssignment(QueryString parameters) throws SQLException {
@@ -117,10 +120,7 @@ public class AssignToProjectController implements HttpController {
                         "Status: " + dao.getStatus() + "<br><br><br>" +
                         "<form method='POST' action='/api/updateStatus'>" +
                         "<input type='hidden' name='id' value='"+ dao.getId() +"'>" +
-                        "<select id='status_update' name='status_update'> " +
-                        "<option value='to-do'>To do </option>" +
-                        "<option value='in-progress'>In progress </option>" +
-                        "<option value='done'>Done</option>" +
+                        "<select class='status_update' id='status_update' name='status_update'> " +
                         "</select>" +
                         "<button> Update Status</button>" +
                         "</form>" +

@@ -18,6 +18,7 @@ public class ProjectManagerServer {
     private ProjectDao projectDao;
     private TaskDao taskDao;
     private MemberToProjectDao memberToProjectDao;
+    private StatusDao statusDao;
     private static final Logger logger = LoggerFactory.getLogger(ProjectManagerServer.class);
 
     public ProjectManagerServer(int port) throws IOException, IOException {
@@ -38,6 +39,8 @@ public class ProjectManagerServer {
         projectDao = new ProjectDao(dataSource);
         taskDao = new TaskDao(dataSource);
         memberToProjectDao = new MemberToProjectDao(dataSource);
+        statusDao = new StatusDao(dataSource);
+
 
 
         server = new HttpServer(port);
@@ -55,6 +58,7 @@ public class ProjectManagerServer {
         server.addController("/api/assignedProjects", new AssignToProjectController(memberToProjectDao));
         server.addController("/api/updateStatus", new AssignToProjectController(memberToProjectDao));
         server.addController("/api/deleteAssignment", new AssignToProjectController(memberToProjectDao));
+        server.addController("/api/fetchStatus", new StatusController(statusDao));
     }
 
     public static void main(String[] args) throws IOException {

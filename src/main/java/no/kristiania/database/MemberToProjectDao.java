@@ -15,14 +15,14 @@ public class MemberToProjectDao {
 
     public void insert(MemberToProject memberToProject) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO projectmember_to_project (project_name, projectmember_name, task_name, status, description) VALUES (?, ?, ?, ?, ?)",
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO projectmember_to_project (project_name, projectmember_name, task_name, status_id, description) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
 
                 statement.setInt(1, memberToProject.getProjectId());
                 statement.setInt(2, memberToProject.getMemberNameId());
                 statement.setInt(3, memberToProject.getTaskId());
-                statement.setString(4, memberToProject.getStatus());
+                statement.setInt(4, memberToProject.getStatusId());
                 statement.setString(5, memberToProject.getDescription());
                 statement.executeUpdate();
 
@@ -49,10 +49,10 @@ public class MemberToProjectDao {
         }
     }
 
-    public void updateStatus(String status, long id) throws SQLException {
+    public void updateStatus(int status, long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("UPDATE projectmember_to_project SET status = ? WHERE id=?")) {
-                statement.setString(1,status);
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE projectmember_to_project SET status_id = ? WHERE id=?")) {
+                statement.setInt(1,status);
                 statement.setLong(2,id);
                 statement.executeUpdate();
             }
@@ -78,6 +78,7 @@ public class MemberToProjectDao {
         memberToProject.setNameId(rs.getInt("projectmember_name"));
         memberToProject.setTaskId(rs.getInt("task_name"));
         memberToProject.setTaskName(rs.getString("name"));
+        memberToProject.setStatusId(rs.getInt("status_id"));
         memberToProject.setStatus(rs.getString("status"));
         memberToProject.setDescription(rs.getString("description"));
         return memberToProject;
@@ -85,7 +86,7 @@ public class MemberToProjectDao {
 
     public List<MemberToProject> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT task.id, task.name, project.p_name, task_name, project_name, projectmember_name, status, description, projectmembers.first_name, projectmembers.last_name FROM task INNER JOIN projectmember_to_project ON  projectmember_to_project.task_name = task.id INNER JOIN project ON projectmember_to_project.project_name = project.id INNER JOIN projectmembers ON projectmember_to_project.projectmember_name = projectmembers.id")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT task.id, task.name, status.status, project.p_name, task_name, project_name, projectmember_name, description, projectmembers.first_name, projectmembers.last_name, status_id FROM task INNER JOIN projectmember_to_project ON  projectmember_to_project.task_name = task.id INNER JOIN project ON projectmember_to_project.project_name = project.id INNER JOIN projectmembers ON projectmember_to_project.projectmember_name = projectmembers.id INNER JOIN status ON projectmember_to_project.status_id = status.id")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     List<MemberToProject> memberToProjects = new ArrayList<>();
                     while (rs.next()) {
