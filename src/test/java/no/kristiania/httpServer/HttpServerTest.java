@@ -1,14 +1,7 @@
 package no.kristiania.httpServer;
 
-import com.sun.net.httpserver.HttpsServer;
 import no.kristiania.database.*;
-import no.kristiania.httpServer.controllers.AssignToProjectController;
-import no.kristiania.httpServer.controllers.MemberController;
-import no.kristiania.httpServer.controllers.ProjectController;
-import no.kristiania.httpServer.controllers.TaskController;
-import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

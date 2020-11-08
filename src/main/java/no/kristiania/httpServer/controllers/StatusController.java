@@ -1,7 +1,7 @@
 package no.kristiania.httpServer.controllers;
 
+import no.kristiania.database.StatusDao;
 import no.kristiania.database.Task;
-import no.kristiania.database.TaskDao;
 import no.kristiania.httpServer.HttpMessage;
 import no.kristiania.httpServer.QueryString;
 
@@ -14,12 +14,11 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
-public class TaskController implements HttpController {
-    private TaskDao dao;
+public class StatusController implements HttpController {
+    private StatusDao dao;
     private String body;
-    private String redirect;
 
-    public TaskController(TaskDao dao) {
+    public StatusController(StatusDao dao) {
         this.dao = dao;
     }
 
@@ -27,22 +26,7 @@ public class TaskController implements HttpController {
     public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
         try {
             if (requestMethod.equals("POST")) {
-                QueryString requestParameter = new QueryString(request.getBody());
-                String requestTarget = RequestTarget.requestTarget(request);
 
-                if (requestTarget.equals("/api/updateTask")) {
-                    updateName(requestParameter);
-                    redirect = "/updateTask.html";
-                } else {
-                    executeSqlStatement(requestParameter);
-                    redirect = "/newTask.html";
-                }
-
-                outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
-                        "Location: "+ redirect +"\r\n" +
-                        "Transfer-Encoding: chunked" +
-                        "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
             } else {
                 body = getBody();
                 String status = "200";
@@ -67,22 +51,10 @@ public class TaskController implements HttpController {
         }
     }
 
-    private void updateName(QueryString requestParameter) throws UnsupportedEncodingException, SQLException {
-        String name = URLDecoder.decode(requestParameter.getParameter("update-task-name"), StandardCharsets.UTF_8.name());
-        String idString = requestParameter.getParameter("task-name");
-        long id = Long.parseLong(idString);
-        dao.updateTask(name, id);
-    }
-
-    private void executeSqlStatement(QueryString requestParameter) throws SQLException {
-        Task task = new Task();
-        task.setName(URLDecoder.decode(requestParameter.getParameter("task_name"), StandardCharsets.UTF_8));
-        dao.insert(task);
-    }
-
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option name='" + dao.getId() +"' value='"+ dao.getId() +"' id='" + dao.getId() + "'>" + dao.getName() + "</option> "))
+                .map(dao -> String.format("<option name='" + dao.getId() +"' value='"+ dao.getId() +"' id='" + dao.getId() + "'>" + dao.getStatus() + "</option> "))
                 .collect(Collectors.joining(""));
     }
+
 }

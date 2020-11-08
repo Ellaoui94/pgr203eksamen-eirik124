@@ -2,12 +2,9 @@ package no.kristiania.httpServer;
 
 import no.kristiania.database.*;
 import no.kristiania.httpServer.controllers.*;
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sql.DataSource;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,7 +12,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public class HttpServer {
 
