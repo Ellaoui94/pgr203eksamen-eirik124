@@ -43,7 +43,6 @@ Struktur som viser hva som skjer i programmet når man henter ut eksempelvis pro
 
 -----------------------------
 ## Hvordan det bygges
-Baseres på programmet IntelliJ fremgangsmåte kan variere fra program til program
 
 Man bygger .jar-filen ved å velge View -> Tool Windows -> Maven. Da åpnes det et Maven-vindu under ```Lifecycle```. Man velger så ```Package``` og deretter kjører den pakking og bygging på et par sekunder.
 
@@ -59,6 +58,11 @@ dataSource.password=passord       //Et hemmelig og sikkert passord
 
 Man kjører serveren med .jar-filen ved å kjøre ```java -Dfile.encoding=UTF-8 -jar target/http-server.jar``` eller det man renamer filen til etter build. 
 Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den porten som blir satt av bruker.
+
+-----------------------------
+## Funksjonalitet
+
+Hovedsiden består av 4 kategorier (medlemmer, prosjekter, oppgaver og tildelinger). I de tre første kategoriene får bruker mulighet til å opprette objekter av hver type og oppdatere/endre disse samt få opp en liste med alt som er opprettet. Når man oppretter objekter blir man omdirigert tilbake dit man var. I tildelingskategorien kan medlemmer og oppgaver tildeles til prosjekter, og det kan velges status og legges til beskrivelse av prosjektet. Det finnes en egen seksjon som viser alle tildelinger og en egen seksjon der man kan filtrere prosjekter basert på status.
 
 ## Eksamen sjekkliste
 
