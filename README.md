@@ -73,7 +73,7 @@ README.md
 - [X] README.md inneholder en korrekt link til Github Actions
 - [X] README.md beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
 - [ ] README.md beskriver eventuell ekstra leveranse utover minimum
-- [ ] README.md inneholder et diagram som viser datamodellen
+- [X] README.md inneholder et diagram som viser datamodellen
 Koden
 
 ### Koden
@@ -107,5 +107,5 @@ Funksjonalitet
 - [X] Korrekt håndtering av norske tegn i HTTP
 - [X] Link til video med god demonstrasjon av ping-pong programmering
 - [X] Automatisk rapportering av testdekning i Github Actions
-- [X] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
+- [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
 - [ ] Annet
