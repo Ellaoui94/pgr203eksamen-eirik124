@@ -1,5 +1,5 @@
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-eirik124/workflows/Java%20CI%20with%20Maven/badge.svg)
-# pgr203eksamen-eirik124
+# PGR203 EKSAMEN
 
 #### Gruppemedlemmer:
 Pål Anders Byenstuen, Eirik Lundanes og Vibeke Opgård.
