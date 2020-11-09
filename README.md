@@ -57,7 +57,7 @@ dataSource.username=username   //brukernavnet som har access til SQL serveren
 dataSource.password=passord //her setter du et passord  som er sikkert som ingen vet
 ```
 
-Man kjører serveren med .jar-filen ved å kjøre ```java -jar target/http-server.jar``` eller det man renamer filen til etter build. 
+Man kjører serveren med .jar-filen ved å kjøre ```java -Dfile.encoding=UTF-8 -jar target/http-server.jar``` eller det man renamer filen til etter build. 
 Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den porten som blir satt av bruker.
 
 ## Eksamen sjekkliste
@@ -65,7 +65,7 @@ Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den por
 ### Sjekkliste for innlevering
 - [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
 - [X] Koden er sjekket inn på github.com/kristiania-repository
-- [ ] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
+- [X] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
 README.md
 
 ### Readme.md
@@ -106,6 +106,6 @@ Funksjonalitet
 - [X] God bruk av Controller-pattern
 - [X] Korrekt håndtering av norske tegn i HTTP
 - [X] Link til video med god demonstrasjon av ping-pong programmering
-- [X] Automatisk rapportering av testdekning i Github Actions
+- [ ] Automatisk rapportering av testdekning i Github Actions
 - [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
 - [ ] Annet
