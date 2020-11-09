@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class EchoController implements HttpController {
     @Override

@@ -1,11 +1,16 @@
 package no.kristiania.httpServer;
 
 import no.kristiania.database.*;
-import no.kristiania.httpServer.controllers.*;
+import no.kristiania.httpServer.controllers.EchoController;
+import no.kristiania.httpServer.controllers.FileController;
+import no.kristiania.httpServer.controllers.HttpController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;

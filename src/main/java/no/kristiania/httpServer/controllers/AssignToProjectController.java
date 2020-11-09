@@ -12,7 +12,6 @@ import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AssignToProjectController implements HttpController {

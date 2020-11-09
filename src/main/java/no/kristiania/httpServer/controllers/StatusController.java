@@ -1,16 +1,11 @@
 package no.kristiania.httpServer.controllers;
 
 import no.kristiania.database.StatusDao;
-import no.kristiania.database.Task;
 import no.kristiania.httpServer.HttpMessage;
-import no.kristiania.httpServer.QueryString;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 

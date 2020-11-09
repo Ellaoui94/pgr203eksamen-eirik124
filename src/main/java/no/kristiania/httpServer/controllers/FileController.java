@@ -1,7 +1,6 @@
 package no.kristiania.httpServer.controllers;
 
 import no.kristiania.httpServer.HttpMessage;
-import no.kristiania.httpServer.HttpServer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
