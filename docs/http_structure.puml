@@ -1,0 +1,44 @@
+@startuml
+
+ProjectManagerServer -- HttpController
+EchoController ..|> HttpController
+AbstractDao ..|> HttpController
+Controllers ..|> HttpController
+Controllers --|> AbstractDao
+
+class ProjectManagerServer {
+- final server: HttpServer
+- {static} final Logger
+--
++ ProjectManagerServer(port: int)
++ main()
+- start(): void
+}
+
+interface HttpController {
+--
++ handle (
+    requestMethod: String
+    request: HttpMessage
+    clientSocket: Socket
+    outputStream: outputStream
+): void
+}
+
+class EchoController {
++ handle(): void <<override>>
+}
+
+abstract class AbstractDao{
+# dataSource: DataSource
+--
++ AbstractDao(dataSource)
++ {abstract} insertData(): void
++ insert(): long
++ listAllElements(): List
+}
+
+class Controllers {
+}
+
+@enduml
