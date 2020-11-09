@@ -99,7 +99,7 @@ Funksjonalitet
 - [ ] Implementasjon av cookies for å konstruere sesjoner: https://tools.ietf.org/html/rfc6265#section-3
 - [X] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
-- [ ] God bruk av DAO-pattern
+- [X] God bruk av DAO-pattern
 - [ ] God bruk av Controller-pattern
 - [X] Korrekt håndtering av norske tegn i HTTP
 - [X] Link til video med god demonstrasjon av ping-pong programmering
