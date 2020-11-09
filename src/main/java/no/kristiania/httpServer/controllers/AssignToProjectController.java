@@ -71,20 +71,11 @@ public class AssignToProjectController implements HttpController {
     }
 
     private void executeSqlStatement(QueryString requestParameter) throws SQLException, UnsupportedEncodingException {
-        String taskName = URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name());
-        int taskId = Integer.parseInt(taskName);
-        String projectName = URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name());
-        int projectId = Integer.parseInt(projectName);
-        String memberName = URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name());
-        int nameId = Integer.parseInt(memberName);
-        String statusName = URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name());
-        int statusId = Integer.parseInt(statusName);
-
         MemberToProject memberToProject = new MemberToProject();
-        memberToProject.setProjectId(projectId);
-        memberToProject.setNameId(nameId);
-        memberToProject.setTaskId(taskId);
-        memberToProject.setStatusId(statusId);
+        memberToProject.setProjectId(Integer.parseInt(URLDecoder.decode(requestParameter.getParameter("select_project"), StandardCharsets.UTF_8.name())));
+        memberToProject.setNameId(Integer.parseInt(URLDecoder.decode(requestParameter.getParameter("select_project_member"), StandardCharsets.UTF_8.name())));
+        memberToProject.setTaskId(Integer.parseInt(URLDecoder.decode(requestParameter.getParameter("select_task"), StandardCharsets.UTF_8.name())));
+        memberToProject.setStatusId(Integer.parseInt(URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name())));
         memberToProject.setDescription(URLDecoder.decode(requestParameter.getParameter("description"), StandardCharsets.UTF_8.name()));
         dao.insert(memberToProject);
     }
