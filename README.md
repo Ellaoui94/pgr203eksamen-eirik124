@@ -64,31 +64,9 @@ Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den por
 
 Hovedsiden består av 4 kategorier (medlemmer, prosjekter, oppgaver og tildelinger). I de tre første kategoriene får bruker mulighet til å opprette objekter av hver type og oppdatere/endre disse samt få opp en liste med alt som er opprettet. Når man oppretter objekter blir man omdirigert tilbake dit man var. I tildelingskategorien kan medlemmer og oppgaver tildeles til prosjekter, og det kan velges status og legges til beskrivelse av prosjektet. Det finnes en egen seksjon som viser alle tildelinger og en egen seksjon der man kan filtrere prosjekter basert på status.
 
+
+
 ## Eksamen sjekkliste
-
-### Sjekkliste for innlevering
-- [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
-- [X] Koden er sjekket inn på github.com/kristiania-repository
-- [X] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
-README.md
-
-### Readme.md
-
-- [X] README.md inneholder en korrekt link til Github Actions
-- [X] README.md beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
-- [ ] README.md beskriver eventuell ekstra leveranse utover minimum
-- [X] README.md inneholder et diagram som viser datamodellen
-Koden
-
-### Koden
-
-- [X] mvn package bygger en executable jar-fil
-- [X] Koden inneholder et godt sett med tester
-- [X] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
-- [X] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
-- [X] Programmet bruker Flywaydb for å sette opp databaseskjema
-- [X] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
-Funksjonalitet
 
 ### Funksjonalitet
 
