@@ -70,7 +70,6 @@ README.md
 - [X] README.md beskriver prosjektets funksjonalitet, hvordan man bygger det og hvordan man kjører det
 - [ ] README.md beskriver eventuell ekstra leveranse utover minimum
 - [ ] README.md inneholder et diagram som viser datamodellen
-- [ ] Dere har gitt minst 2 positive og 2 korrektive GitHub issues til en annen gruppe og inkluderer link til disse fra README.md
 Koden
 
 ### Koden
@@ -93,14 +92,14 @@ Funksjonalitet
 - [X] Programmet lar bruker endre status på en oppgave
 
 ### Ekstra poeng sjekklist
-- [ ] Håndtering av request target "/"
+- [X] Håndtering av request target "/"
 - [X] Avansert datamodell (mer enn 3 tabeller)
-- [ ] Avansert funksjonalitet (redigering av prosjektmedlemmer, statuskategorier, prosjekter)
+- [X] Avansert funksjonalitet (redigering av prosjektmedlemmer, statuskategorier, prosjekter)
 - [ ] Implementasjon av cookies for å konstruere sesjoner: https://tools.ietf.org/html/rfc6265#section-3
 - [X] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
 - [X] God bruk av DAO-pattern
-- [ ] God bruk av Controller-pattern
+- [X] God bruk av Controller-pattern
 - [X] Korrekt håndtering av norske tegn i HTTP
 - [X] Link til video med god demonstrasjon av ping-pong programmering
 - [X] Automatisk rapportering av testdekning i Github Actions
