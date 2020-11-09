@@ -22,19 +22,23 @@ Link til pull request som viser hvordan vi jobbet sammen over Discord på innlev
 [pgr203innlevering2-eirik124/pull/1](https://github.com/kristiania/pgr203innlevering2-eirik124/pull/1)
 
 
-## Github Actions
-Link til github actions
+## GitHub Actions
+Link til Github Actions:
 [Github Actions](https://github.com/kristiania/pgr203eksamen-eirik124/actions)
 
 -----------------------------
-## UML Modeller
+## UML-modeller
 
-### Database struktur
+
+### Database-struktur
 
 ![](docs/database_structure.png)
 
-### Server struktur
+### Server-struktur
 
+![](docs/http_structure.png)
+
+Struktur som viser hva som skjer i programmet når man henter ut eksempelvis prosjektmedlemmer:
 ![](docs/server_structure.png)
 
 -----------------------------
