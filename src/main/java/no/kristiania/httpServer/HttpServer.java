@@ -76,7 +76,6 @@ public class HttpServer {
         } else {
             handleFileRequest(clientSocket, requestPath, clientSocket.getOutputStream());
         }
-
     }
 
 

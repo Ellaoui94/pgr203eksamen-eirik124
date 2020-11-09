@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class MemberController implements HttpController {
-    private String body;
+    String body;
     private MemberDao dao;
     String status = "200";
     String redirect;

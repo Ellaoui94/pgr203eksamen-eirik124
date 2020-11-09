@@ -44,6 +44,7 @@ public class ProjectManagerServer {
 
         server = new HttpServer(port);
         logger.info("Using database {}", dataSource.getUrl());
+        server.addController("/", new TargetController());
         server.addController("/api/newProject", new ProjectController(projectDao));
         server.addController("/api/projects", new ProjectController(projectDao));
         server.addController("/api/updateProject", new ProjectController(projectDao));
