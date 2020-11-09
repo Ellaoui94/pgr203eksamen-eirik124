@@ -65,13 +65,12 @@ Default port er 8080. Nettsiden kjøres default på localhost:8080 eller den por
 Hovedsiden består av 4 kategorier (medlemmer, prosjekter, oppgaver og tildelinger). I de tre første kategoriene får bruker mulighet til å opprette objekter av hver type og oppdatere/endre disse samt få opp en liste med alt som er opprettet. Når man oppretter objekter blir man omdirigert tilbake dit man var. I tildelingskategorien kan medlemmer og oppgaver tildeles til prosjekter, og det kan velges status og legges til beskrivelse av prosjektet. Det finnes en egen seksjon som viser alle tildelinger og en egen seksjon der man kan filtrere prosjekter basert på status.
 
 ## Ekstra utover minimum
-Vi har valgt å bruke flere tabeller i databasen for muligheten til å opdatere verdiene og for å hindre duplisering av data. Vi bruker Join for å joine tabellene til assign member to project. Det gir muligheten til å endre prosjekt navn osv og det blir reflektert til assignProjectMembers siden. 
+Vi har valgt å bruke flere tabeller i databasen for å få muligheten til å opdatere verdiene og for å unngå redundans. Vi bruker JOIN for å slå sammen tabellene til assignMemberToProject. Det gir muligheten til å endre prosjekt-navn osv., og det blir reflektert til assignProjectMembers-siden. 
 
-Prosjektet har også mulighet for å filtrere tildelte oppgaver basert på satus. Brukere har også mulighet til og opdatere status eller slette assignment (endre status og sletting er delvis bugget)
+Løsningen har også mulighet for å filtrere tildelte oppgaver basert på status. Det går også an å opdatere status eller slette tildeling (dog er denne funksjonaliteten litt bugget, og vi har ikke lykkes i å komme til bunns i hvorfor).
 
 
-
-## Eksamen sjekkliste
+## Eksamen-sjekkliste
 
 ### Funksjonalitet
 
@@ -95,4 +94,4 @@ Prosjektet har også mulighet for å filtrere tildelte oppgaver basert på satus
 - [X] Link til video med god demonstrasjon av ping-pong programmering
 - [ ] Automatisk rapportering av testdekning i Github Actions
 - [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
-- [X] Annet
+- [X] Annet (*Filtreing på status*)
