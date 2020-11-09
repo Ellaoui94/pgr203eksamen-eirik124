@@ -8,9 +8,9 @@ Pål Anders Byenstuen, Eirik Lundanes og Vibeke Opgård.
 
 ## Beskrivelse av prosjekt
 
-Til eksamen i PGR203 Avansert Java har vi laget en webapplikasjon som kan lagre og liste ut prosjektmedlemmer, og opprette prosjekter og prosjektdeltakere fra databasen. Det er mulig å legge til et "member" med fornavn, etternavn og e-postadresse og se den på websiden. Oppgaven er utviklet med test-drevet parprogrammering.
+Til eksamen i PGR203 Avansert Java har vi laget en webapplikasjon som kan lagre og liste ut prosjekter, oppgaver og medlemmer. Det er mulig å legge til et medlem bestående av navn og e-postadresse på et prosjekt, og tildelingen vises på websiden. Et prosjekt består av navn, prosjektmedlem, oppgaver, beskrivelse og status på prosjektet.
 
-Programmet kan brukes ved å besøke localhost:8080 i nettleseren. Her kan du velge member, project, task, og endre status på oppgaver.
+Programmet kan brukes ved å besøke localhost:8080 i nettleseren.
 
 ### Arbeidsform
 Arbeidet med innlevering 1-3 foregikk i stor grad som testdrevet par(trio)-programmering over Discord, noe som fungerte veldig bra. Eksamensoppgaven krevde derimot at vi måtte utforske temaet enda dypere, og vi begynte derfor å jobbe mer fysisk sammen. Istedenfor at vi fordelte issues mellom oss, så fokuserte alle tre på ett og ett issue, i hovedsak på samme maskin. Derfor fremkommer commitloggen ganske misvisende når det kommer til deltakelse i prosjektet. [Projects-tabben](https://github.com/kristiania/pgr203eksamen-eirik124/projects/1) er en bedre representasjon av arbeidsfordelingen enn commitloggen.
@@ -50,11 +50,11 @@ Man bygger .jar-filen ved å velge View -> Tool Windows -> Maven. Da åpnes det 
 -----------------------------
 ## Hvordan det kjøres
 
-Vær sikker på at du har en PostgreSQL-database satt opp som er mulig å koble seg til. Deretter lager du en ```pgr203.properties``` som skal inneholde følgende
+Det må settes opp en PostgreSQL-database som er mulig å koble seg til. Deretter lager du en ```pgr203.properties```-fil som skal inneholde følgende:
 ```
-dataSource.url=jdbc:postgresql://server:port/databasename   //urlen til serveren
-dataSource.username=username   //brukernavnet som har access til SQL serveren
-dataSource.password=passord //her setter du et passord  som er sikkert som ingen vet
+dataSource.url=jdbc:postgresql:   //server:port/databasename   //URL'en til serveren
+dataSource.username=username      //Brukernavnet som har access til SQL-serveren
+dataSource.password=passord       //Et hemmelig og sikkert passord
 ```
 
 Man kjører serveren med .jar-filen ved å kjøre ```java -Dfile.encoding=UTF-8 -jar target/http-server.jar``` eller det man renamer filen til etter build. 
