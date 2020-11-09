@@ -18,7 +18,6 @@ public class MemberToProjectDao {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO projectmember_to_project (project_name, projectmember_name, task_name, status_id, description) VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
-
                 statement.setInt(1, memberToProject.getProjectId());
                 statement.setInt(2, memberToProject.getMemberNameId());
                 statement.setInt(3, memberToProject.getTaskId());
@@ -97,6 +96,4 @@ public class MemberToProjectDao {
             }
         }
     }
-
-
 }

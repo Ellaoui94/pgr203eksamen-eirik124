@@ -9,12 +9,12 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class EchoController implements HttpController {
+
     @Override
     public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
 
         String statusCode = "200";
         String body = "Hello World!";
-
         String requestLine = request.getStartLine();
         String requestTarget = requestLine.split(" ")[1];
 
@@ -29,6 +29,7 @@ public class EchoController implements HttpController {
                 body = queryString.getParameter("body");
             }
         }
+
         outputStream.write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Transfer-Encoding: chunked" +

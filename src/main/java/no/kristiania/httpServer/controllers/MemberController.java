@@ -40,39 +40,27 @@ public class MemberController implements HttpController {
                     redirect = "/newProjectMember.html";
                 }
 
-
-
-
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
                         "Location: " + redirect + "\r\n" +
                         "Transfer-Encoding: chunked" +
                         "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
+                        "\r\n").getBytes(StandardCharsets.UTF_8));
             } else {
                 if (requestTarget.equals("/api/projectMemberList")) {
-
                     body = getBodyList();
-                    outputStream.write(("HTTP/1.1 " + status + " OK\r\n" +
-                            "Content-Type: text/html\r\n" +
-                            "Content-Length: " + body.length() + "\r\n" +
-                            "Connection: close\r\n" +
-                            "\r\n" +
-                            body).getBytes("UTF-8"));
-                    outputStream.flush();
                 } else {
                     body = "<ul>";
                     body += getBody();
                     body += "</ul>";
-
-
-                    outputStream.write(("HTTP/1.1 " + status + " OK\r\n" +
-                            "Content-Type: text/html\r\n" +
-                            "Content-Length: " + body.length() + "\r\n" +
-                            "Connection: close\r\n" +
-                            "\r\n" +
-                            body).getBytes("UTF-8"));
-                    outputStream.flush();
                 }
+
+                outputStream.write(("HTTP/1.1 " + status + " OK\r\n" +
+                        "Content-Type: text/html\r\n" +
+                        "Content-Length: " + body.length() + "\r\n" +
+                        "Connection: close\r\n" +
+                        "\r\n" +
+                        body).getBytes(StandardCharsets.UTF_8));
+                outputStream.flush();
             }
 
         } catch (SQLException e) {
@@ -82,9 +70,8 @@ public class MemberController implements HttpController {
                     "Content-Length: " + message.length() + "\r\n" +
                     "Connection: close\r\n" +
                     "\r\n" +
-                    message).getBytes("UTF-8"));
+                    message).getBytes(StandardCharsets.UTF_8));
         }
-
     }
 
     private void executeSqlStatement(QueryString requestParameter) throws UnsupportedEncodingException, SQLException {

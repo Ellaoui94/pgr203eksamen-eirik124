@@ -5,6 +5,7 @@ import no.kristiania.httpServer.HttpMessage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class TargetController implements HttpController {
@@ -19,7 +20,7 @@ public class TargetController implements HttpController {
             outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
                     "Location: /index.html\r\n" +
                     "Connection: close\r\n" +
-                    "\r\n").getBytes("UTF-8"));
+                    "\r\n").getBytes(StandardCharsets.UTF_8));
         }
     }
 }

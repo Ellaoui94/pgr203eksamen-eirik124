@@ -13,7 +13,6 @@ public class StatusDao {
         this.dataSource = dataSource;
     }
 
-
     public void insert(Status status) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO status (status) VALUES (?)",
@@ -45,7 +44,6 @@ public class StatusDao {
             }
         }
     }
-
 
     public List<Status> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {

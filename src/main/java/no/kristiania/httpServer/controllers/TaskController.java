@@ -42,7 +42,7 @@ public class TaskController implements HttpController {
                         "Location: "+ redirect +"\r\n" +
                         "Transfer-Encoding: chunked" +
                         "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
+                        "\r\n").getBytes(StandardCharsets.UTF_8));
             } else {
                 body = getBody();
                 String status = "200";
@@ -54,7 +54,7 @@ public class TaskController implements HttpController {
                         "\r\n" +
                         body;
 
-                clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
+                clientSocket.getOutputStream().write(response.getBytes(StandardCharsets.UTF_8));
             }
         } catch (SQLException e) {
             String message = e.toString();
@@ -63,7 +63,7 @@ public class TaskController implements HttpController {
                     "Content-Length: " + message.length() + "\r\n" +
                     "Connection: close\r\n" +
                     "\r\n" +
-                    message).getBytes("UTF-8"));
+                    message).getBytes(StandardCharsets.UTF_8));
         }
     }
 

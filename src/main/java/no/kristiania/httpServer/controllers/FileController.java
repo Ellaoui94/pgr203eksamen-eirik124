@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class FileController implements HttpController {
@@ -24,14 +25,14 @@ public class FileController implements HttpController {
                         "Content-Length: 9\r\n" +
                         "Connenction: close\r\n" +
                         "\r\n" +
-                        "Not found").getBytes("UTF-8"));
+                        "Not found").getBytes(StandardCharsets.UTF_8));
                 return;
             }
             if (requestPath.equals("/")) {
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
                         "Location: /index.html\r\n" +
                         "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
+                        "\r\n").getBytes(StandardCharsets.UTF_8));
             }
 
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -52,7 +53,7 @@ public class FileController implements HttpController {
                     "Content-Type: " + contentType + "\r\n" +
                     "\r\n";
 
-            clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
+            clientSocket.getOutputStream().write(response.getBytes(StandardCharsets.UTF_8));
             clientSocket.getOutputStream().write(buffer.toByteArray());
         }
     }

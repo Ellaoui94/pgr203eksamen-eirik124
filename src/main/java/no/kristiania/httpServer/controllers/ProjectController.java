@@ -42,10 +42,8 @@ public class ProjectController implements HttpController {
                         "Location: "+ redirect +" \r\n" +
                         "Transfer-Encoding: chunked" +
                         "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
-
+                        "\r\n").getBytes(StandardCharsets.UTF_8));
             } else {
-
                 body = getBody();
                 String status = "200";
 
@@ -54,7 +52,7 @@ public class ProjectController implements HttpController {
                         "Content-Length: " + body.length() + "\r\n" +
                         "Connection: close\r\n" +
                         "\r\n" +
-                        body).getBytes("UTF-8"));
+                        body).getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
             }
         } catch (SQLException e) {
@@ -64,10 +62,8 @@ public class ProjectController implements HttpController {
                     "Content-Length: " + message.length() + "\r\n" +
                     "Connection: close\r\n" +
                     "\r\n" +
-                    message).getBytes("UTF-8"));
+                    message).getBytes(StandardCharsets.UTF_8));
         }
-
-
     }
 
     private void executeSqlStatement(QueryString requestParameter) throws SQLException {
@@ -82,7 +78,6 @@ public class ProjectController implements HttpController {
         long id = Long.parseLong(idString);
         dao.updateName(name, id);
     }
-
 
     public String getBody() throws SQLException {
         return dao.list().stream()

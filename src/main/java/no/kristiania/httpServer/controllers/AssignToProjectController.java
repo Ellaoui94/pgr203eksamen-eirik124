@@ -15,10 +15,10 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class AssignToProjectController implements HttpController {
+
     private MemberToProjectDao dao;
     private String body;
     String redirect;
-
     public AssignToProjectController(MemberToProjectDao dao) {
         this.dao = dao;
     }
@@ -46,11 +46,8 @@ public class AssignToProjectController implements HttpController {
                         "Location: " + redirect +"\r\n" +
                         "Transfer-Encoding: chunked" +
                         "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
-
+                        "\r\n").getBytes(StandardCharsets.UTF_8));
             } else {
-
-
                 body = getBody();
                 String status = "200";
 
@@ -59,7 +56,7 @@ public class AssignToProjectController implements HttpController {
                         "Content-Length: " + body.length() + "\r\n" +
                         "Connection: close\r\n" +
                         "\r\n" +
-                        body).getBytes("UTF-8"));
+                        body).getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
             }
         } catch (SQLException e) {
@@ -69,7 +66,7 @@ public class AssignToProjectController implements HttpController {
                     "Content-Length: " + message.length() + "\r\n" +
                     "Connection: close\r\n" +
                     "\r\n" +
-                    message).getBytes("UTF-8"));
+                    message).getBytes(StandardCharsets.UTF_8));
         }
     }
 
@@ -82,7 +79,6 @@ public class AssignToProjectController implements HttpController {
         int nameId = Integer.parseInt(memberName);
         String statusName = URLDecoder.decode(requestParameter.getParameter("select_status"), StandardCharsets.UTF_8.name());
         int statusId = Integer.parseInt(statusName);
-
 
         MemberToProject memberToProject = new MemberToProject();
         memberToProject.setProjectId(projectId);
@@ -106,7 +102,6 @@ public class AssignToProjectController implements HttpController {
         long id = Long.parseLong(idString);
         dao.deleteAssignment(id);
     }
-
 
     public String getBody() throws SQLException {
         return dao.list().stream()

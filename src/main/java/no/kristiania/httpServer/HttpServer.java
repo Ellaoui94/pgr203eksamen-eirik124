@@ -26,7 +26,6 @@ public class HttpServer {
     private TaskDao taskDao;
     private MemberToProjectDao memberToProjectDao;
     private FileController fileLocation;
-
     private Map<String, HttpController> controllers = new HashMap<>();
     private final ServerSocket serverSocket;
 
@@ -34,9 +33,6 @@ public class HttpServer {
         serverSocket = new ServerSocket(port);
         controllers.put("/echo", new EchoController());
     }
-
-
-
 
     public void start() {
         logger.info("Started on http://localhost:{}/", 8080);
@@ -57,7 +53,6 @@ public class HttpServer {
         return serverSocket.getLocalPort();
     }
 
-
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
         HttpMessage request = new HttpMessage(clientSocket);
         String requestLine = request.getStartLine();
@@ -77,7 +72,6 @@ public class HttpServer {
             handleFileRequest(clientSocket, requestPath, clientSocket.getOutputStream());
         }
     }
-
 
     public void handleFileRequest(Socket clientSocket, String requestPath, OutputStream outputStream) throws IOException {
         try (InputStream inputStream = getClass().getResourceAsStream(requestPath)) {
@@ -124,7 +118,6 @@ public class HttpServer {
         server.start();
     }
 
-
     public List<Member> getProjectMembers() throws SQLException {
         return memberDao.list();
     }
@@ -132,5 +125,4 @@ public class HttpServer {
     public void addController(String path, HttpController controller) {
         controllers.put(path, controller);
     }
-
 }

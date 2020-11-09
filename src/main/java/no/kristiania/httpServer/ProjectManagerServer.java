@@ -40,8 +40,6 @@ public class ProjectManagerServer {
         memberToProjectDao = new MemberToProjectDao(dataSource);
         statusDao = new StatusDao(dataSource);
 
-
-
         server = new HttpServer(port);
         logger.info("Using database {}", dataSource.getUrl());
         server.addController("/", new TargetController());
@@ -69,5 +67,4 @@ public class ProjectManagerServer {
     private void start() throws IOException {
         server.start();
     }
-
 }

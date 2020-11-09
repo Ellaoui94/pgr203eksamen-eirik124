@@ -63,7 +63,6 @@ public class MemberToProject {
 
     //SETTERS
 
-
     public void setId(Long id) {
         this.id = id;
     }

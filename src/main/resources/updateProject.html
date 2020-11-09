@@ -2,15 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Project</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Update Project | Project Manager</title>
 </head>
 <body>
-    <h1>Update Project Name</h1>
+    <h1>Update project name</h1>
     <form method="post" action="/api/updateProject">
         <select name="project-name" id="project-name"></select><br>
         <input type="text" name="update-project-name" placeholder="New project name"><br>
+        <br>
         <button>Update</button>
     </form>
+    <br>
+    <ul>
+        <li><a href="index.html">Return to home page</a></li>
+    </ul>
 </body>
 <script>
     fetch("/api/projects")

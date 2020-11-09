@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update task name</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Update Task | Project Manager</title>
 </head>
 <body>
-<h1>Update Task Name</h1>
+<h1>Update task name</h1>
 <form method="post" action="/api/updateTask">
     <select name="task-name" id="task-name"></select><br>
+    <br>
     <input type="text" name="update-task-name" placeholder="New task name"><br>
+    <br>
     <button>Update</button>
+    <br>
+    <ul>
+        <li><a href="index.html">Return to home page</a></li>
+    </ul>
 </form>
 </body>
 <script>

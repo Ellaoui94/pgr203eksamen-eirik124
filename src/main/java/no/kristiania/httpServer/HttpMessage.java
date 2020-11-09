@@ -12,7 +12,6 @@ public class HttpMessage {
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = readLine(socket);
-
         headers = readHeaders(socket);
 
         String contentLength = headers.get("Content-Length");
@@ -58,8 +57,6 @@ public class HttpMessage {
         }
         return headers;
     }
-
-    // GETTERS
 
     public String getStartLine() {
         return startLine;
