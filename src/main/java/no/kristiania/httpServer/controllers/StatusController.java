@@ -1,6 +1,6 @@
 package no.kristiania.httpServer.controllers;
 
-import no.kristiania.database.StatusDao;
+import no.kristiania.database.daos.StatusDao;
 import no.kristiania.httpServer.HttpMessage;
 
 import java.io.IOException;

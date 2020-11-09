@@ -1,6 +1,8 @@
 package no.kristiania.httpServer;
 
-import no.kristiania.database.*;
+import no.kristiania.database.daos.MemberDao;
+import no.kristiania.database.daos.ProjectDao;
+import no.kristiania.database.daos.TaskDao;
 import no.kristiania.database.objects.Member;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;

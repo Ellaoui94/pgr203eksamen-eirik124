@@ -1,7 +1,7 @@
 package no.kristiania.httpServer.controllers;
 
 import no.kristiania.database.objects.Member;
-import no.kristiania.database.MemberDao;
+import no.kristiania.database.daos.MemberDao;
 import no.kristiania.httpServer.HttpMessage;
 import no.kristiania.httpServer.QueryString;
 

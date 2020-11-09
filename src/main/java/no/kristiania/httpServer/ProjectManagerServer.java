@@ -1,6 +1,6 @@
 package no.kristiania.httpServer;
 
-import no.kristiania.database.*;
+import no.kristiania.database.daos.*;
 import no.kristiania.httpServer.controllers.*;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;

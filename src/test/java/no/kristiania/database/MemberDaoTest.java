@@ -1,5 +1,6 @@
 package no.kristiania.database;
 
+import no.kristiania.database.daos.MemberDao;
 import no.kristiania.database.objects.Member;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;

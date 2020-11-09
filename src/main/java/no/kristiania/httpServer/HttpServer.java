@@ -1,6 +1,6 @@
 package no.kristiania.httpServer;
 
-import no.kristiania.database.MemberDao;
+import no.kristiania.database.daos.MemberDao;
 import no.kristiania.httpServer.controllers.EchoController;
 import no.kristiania.httpServer.controllers.HttpController;
 import org.slf4j.Logger;
