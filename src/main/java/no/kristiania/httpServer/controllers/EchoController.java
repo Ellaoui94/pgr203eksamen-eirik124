@@ -6,12 +6,12 @@ import no.kristiania.httpServer.QueryString;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
 
 public class EchoController implements HttpController {
 
     @Override
-    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
+    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException {
 
         String statusCode = "200";
         String body = "Hello World!";
@@ -36,6 +36,6 @@ public class EchoController implements HttpController {
                 "Content-Length: " + body.length() + "\r\n" +
                 "Connection: close\r\n" +
                 "\r\n" +
-                body).getBytes("UTF-8"));
+                body).getBytes(StandardCharsets.UTF_8));
     }
 }

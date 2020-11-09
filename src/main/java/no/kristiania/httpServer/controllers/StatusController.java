@@ -11,20 +11,16 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class StatusController implements HttpController {
-    private StatusDao dao;
-    private String body;
+    private final StatusDao dao;
 
     public StatusController(StatusDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
+    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException {
         try {
-            if (requestMethod.equals("POST")) {
-
-            } else {
-                body = getBody();
+                String body = getBody();
                 String status = "200";
 
                 String response = "HTTP/1.1 "+ status +" OK\r\n" +
@@ -35,7 +31,6 @@ public class StatusController implements HttpController {
                         body;
 
                 clientSocket.getOutputStream().write(response.getBytes(StandardCharsets.UTF_8));
-            }
         } catch (SQLException e) {
             String message = e.toString();
             outputStream.write(("HTTP/1.1 500 Internal server error\r\n" +
@@ -49,7 +44,7 @@ public class StatusController implements HttpController {
 
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option name='" + dao.getId() +"' value='"+ dao.getId() +"' id='" + dao.getId() + "'>" + dao.getStatus() + "</option> "))
+                .map(dao -> "<option name='" + dao.getId() + "' value='" + dao.getId() + "' id='" + dao.getId() + "'>" + dao.getStatus() + "</option> ")
                 .collect(Collectors.joining(""));
     }
 }

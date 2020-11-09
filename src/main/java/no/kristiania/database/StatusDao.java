@@ -7,7 +7,7 @@ import java.util.List;
 
 public class StatusDao {
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public StatusDao(DataSource dataSource) {
         this.dataSource = dataSource;

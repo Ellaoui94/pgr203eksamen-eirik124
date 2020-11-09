@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDao {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public TaskDao(DataSource dataSource) {
         this.dataSource = dataSource;

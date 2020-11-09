@@ -1,8 +1,8 @@
 package no.kristiania.httpServer;
 
-import no.kristiania.database.*;
+import no.kristiania.database.Member;
+import no.kristiania.database.MemberDao;
 import no.kristiania.httpServer.controllers.EchoController;
-import no.kristiania.httpServer.controllers.FileController;
 import no.kristiania.httpServer.controllers.HttpController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +23,6 @@ public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private MemberDao memberDao;
-    private ProjectDao projectDao;
-    private TaskDao taskDao;
-    private MemberToProjectDao memberToProjectDao;
-    private FileController fileLocation;
     private Map<String, HttpController> controllers = new HashMap<>();
     private final ServerSocket serverSocket;
 
@@ -80,20 +77,20 @@ public class HttpServer {
                         "Content-Length: 9\r\n" +
                         "Connenction: close\r\n" +
                         "\r\n" +
-                        "Not found").getBytes("UTF-8"));
+                        "Not found").getBytes(StandardCharsets.UTF_8));
                 return;
             }
             if (requestPath.equals("/")) {
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
                         "Location: /index.html\r\n" +
                         "Connection: close\r\n" +
-                        "\r\n").getBytes("UTF-8"));
+                        "\r\n").getBytes(StandardCharsets.UTF_8));
             }
 
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             inputStream.transferTo(buffer);
 
-            String contentType = "text/plain";
+            String contentType;
             if (requestPath.endsWith(".html")) {
                 contentType = "text/html";
             } else if (requestPath.endsWith(".css")) {
@@ -108,7 +105,7 @@ public class HttpServer {
                     "Content-Type: " + contentType + "\r\n" +
                     "\r\n";
 
-            clientSocket.getOutputStream().write(response.getBytes("UTF-8"));
+            clientSocket.getOutputStream().write(response.getBytes(StandardCharsets.UTF_8));
             clientSocket.getOutputStream().write(buffer.toByteArray());
         }
     }

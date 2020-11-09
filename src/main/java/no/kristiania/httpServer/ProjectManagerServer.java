@@ -13,14 +13,9 @@ import java.util.Properties;
 
 public class ProjectManagerServer {
     private final HttpServer server;
-    private MemberDao memberDao;
-    private ProjectDao projectDao;
-    private TaskDao taskDao;
-    private MemberToProjectDao memberToProjectDao;
-    private StatusDao statusDao;
     private static final Logger logger = LoggerFactory.getLogger(ProjectManagerServer.class);
 
-    public ProjectManagerServer(int port) throws IOException, IOException {
+    public ProjectManagerServer(int port) throws IOException {
         Properties properties = new Properties();
 
         try (FileReader reader = new FileReader("pgr203.properties")) {
@@ -34,11 +29,11 @@ public class ProjectManagerServer {
 
         Flyway.configure().dataSource(dataSource).load().migrate();
 
-        memberDao = new MemberDao(dataSource);
-        projectDao = new ProjectDao(dataSource);
-        taskDao = new TaskDao(dataSource);
-        memberToProjectDao = new MemberToProjectDao(dataSource);
-        statusDao = new StatusDao(dataSource);
+        MemberDao memberDao = new MemberDao(dataSource);
+        ProjectDao projectDao = new ProjectDao(dataSource);
+        TaskDao taskDao = new TaskDao(dataSource);
+        MemberToProjectDao memberToProjectDao = new MemberToProjectDao(dataSource);
+        StatusDao statusDao = new StatusDao(dataSource);
 
         server = new HttpServer(port);
         logger.info("Using database {}", dataSource.getUrl());
@@ -64,7 +59,7 @@ public class ProjectManagerServer {
         new ProjectManagerServer(8080).start();
     }
 
-    private void start() throws IOException {
+    private void start() {
         server.start();
     }
 }

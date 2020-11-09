@@ -16,15 +16,14 @@ import java.util.stream.Collectors;
 
 public class AssignToProjectController implements HttpController {
 
-    private MemberToProjectDao dao;
-    private String body;
+    private final MemberToProjectDao dao;
     String redirect;
     public AssignToProjectController(MemberToProjectDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
+    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException {
 
         try {
             if (requestMethod.equals("POST")) {
@@ -48,7 +47,7 @@ public class AssignToProjectController implements HttpController {
                         "Connection: close\r\n" +
                         "\r\n").getBytes(StandardCharsets.UTF_8));
             } else {
-                body = getBody();
+                String body = getBody();
                 String status = "200";
 
                 outputStream.write(("HTTP/1.1 " + status + " OK\r\n" +
@@ -96,25 +95,25 @@ public class AssignToProjectController implements HttpController {
 
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<div class='project-card " + dao.getStatus() + "' id='"+ dao.getId() +"'>" +
-                        "<h3>"+ dao.getProjectName() +"</h3>" +
+                .map(dao -> "<div class='project-card " + dao.getStatus() + "' id='" + dao.getId() + "'>" +
+                        "<h3>" + dao.getProjectName() + "</h3>" +
                         "<h5>Task: " + dao.getTaskName() + "</h5>" +
                         "<b>Description:</b><br>" +
                         "<p> " + dao.getDescription() + "</p><br><br>" +
                         "Assigned to: " + dao.getFirstName() + " " + dao.getLastName() + "<br> " +
                         "Status: " + dao.getStatus() + "<br><br><br>" +
                         "<form method='POST' action='/api/updateStatus'>" +
-                        "<input type='hidden' name='id' value='"+ dao.getId() +"'>" +
+                        "<input type='hidden' name='id' value='" + dao.getId() + "'>" +
                         "<select class='status_update' id='status_update' name='status_update'> " +
                         "</select>" +
                         "<button> Update Status</button>" +
                         "</form>" +
                         "<br><br>" +
                         "<form method='POST' action='/api/deleteAssignment'>" +
-                        "<input type='hidden' name='delete-id' value='"+ dao.getId() +"'>" +
+                        "<input type='hidden' name='delete-id' value='" + dao.getId() + "'>" +
                         "<button> Remove assignment</button>" +
                         "</form>" +
-                        "</div>"))
+                        "</div>")
                 .collect(Collectors.joining(""));
     }
 }

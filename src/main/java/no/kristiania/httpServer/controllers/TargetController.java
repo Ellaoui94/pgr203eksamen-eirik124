@@ -6,12 +6,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 
 public class TargetController implements HttpController {
 
     @Override
-    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
+    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException {
         String requestTarget = RequestTarget.requestTarget(request);
         int questionPos = requestTarget.indexOf('?');
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;

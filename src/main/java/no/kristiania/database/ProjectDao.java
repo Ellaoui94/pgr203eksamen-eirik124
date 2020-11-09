@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDao {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public ProjectDao(DataSource dataSource) {
         this.dataSource = dataSource;

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class MemberController implements HttpController {
     String body;
-    private MemberDao dao;
+    private final MemberDao dao;
     String status = "200";
     String redirect;
 
@@ -25,7 +25,7 @@ public class MemberController implements HttpController {
     }
 
     @Override
-    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
+    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException {
         String requestTarget = RequestTarget.requestTarget(request);
 
         try {
@@ -93,13 +93,13 @@ public class MemberController implements HttpController {
 
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<li>" + dao.getFirstName() + " " + dao.getLastName() + ", " + dao.getEmail() + "</li>"))
+                .map(dao -> "<li>" + dao.getFirstName() + " " + dao.getLastName() + ", " + dao.getEmail() + "</li>")
                 .collect(Collectors.joining(""));
     }
 
     public String getBodyList() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option value='"+ dao.getId() + "'>" + dao.getFirstName() + " " + dao.getLastName() + "</option>"))
+                .map(dao -> "<option value='" + dao.getId() + "'>" + dao.getFirstName() + " " + dao.getLastName() + "</option>")
                 .collect(Collectors.joining(""));
     }
 }

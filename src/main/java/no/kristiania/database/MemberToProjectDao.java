@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MemberToProjectDao {
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public MemberToProjectDao(DataSource dataSource) {
         this.dataSource = dataSource;

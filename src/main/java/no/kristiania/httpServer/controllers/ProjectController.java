@@ -15,9 +15,7 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class ProjectController implements HttpController {
-    private ProjectDao dao;
-    private String body;
-    private String redirect;
+    private final ProjectDao dao;
 
 
     public ProjectController(ProjectDao dao) {
@@ -25,11 +23,12 @@ public class ProjectController implements HttpController {
     }
 
     @Override
-    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
+    public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException {
         try {
             if (requestMethod.equals("POST")) {
                 QueryString requestParameter = new QueryString(request.getBody());
                 String requestTarget = RequestTarget.requestTarget(request);
+                String redirect;
                 if (requestTarget.equals("/api/updateProject")) {
                     updateName(requestParameter);
                     redirect = "/updateProject.html";
@@ -44,7 +43,7 @@ public class ProjectController implements HttpController {
                         "Connection: close\r\n" +
                         "\r\n").getBytes(StandardCharsets.UTF_8));
             } else {
-                body = getBody();
+                String body = getBody();
                 String status = "200";
 
                 outputStream.write(("HTTP/1.1 " + status + " OK\r\n" +
@@ -81,7 +80,7 @@ public class ProjectController implements HttpController {
 
     public String getBody() throws SQLException {
         return dao.list().stream()
-                .map(dao -> String.format("<option name='" + dao.getId() +"' value='" + dao.getId() +"' id='" + dao.getId() + "'>" + dao.getName() + "</option>"))
+                .map(dao -> "<option name='" + dao.getId() + "' value='" + dao.getId() + "' id='" + dao.getId() + "'>" + dao.getName() + "</option>")
                 .collect(Collectors.joining(""));
     }
 }
