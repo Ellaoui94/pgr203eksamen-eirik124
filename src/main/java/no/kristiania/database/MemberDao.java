@@ -30,6 +30,17 @@ public class MemberDao {
             }
         }
     }
+    public void updateMember(String firstName, String lastName, String email, long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE projectmembers SET first_name = ?, last_name = ?, email = ? WHERE id=?")) {
+                statement.setString(1,firstName);
+                statement.setString(2, lastName);
+                statement.setString(3, email);
+                statement.setLong(4,id);
+                statement.executeUpdate();
+            }
+        }
+    }
 
     public Member retrieve(Long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -68,4 +79,5 @@ public class MemberDao {
             }
         }
     }
+
 }

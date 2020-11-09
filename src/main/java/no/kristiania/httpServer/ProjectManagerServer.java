@@ -51,6 +51,7 @@ public class ProjectManagerServer {
         server.addController("/api/members", new MemberController(memberDao));
         server.addController("/api/newProjectMember", new MemberController(memberDao));
         server.addController("/api/projectMemberList", new MemberController(memberDao));
+        server.addController("/api/updateMember", new MemberController(memberDao));
         server.addController("/api/newTask", new TaskController(taskDao));
         server.addController("/api/tasks", new TaskController(taskDao));
         server.addController("/api/updateTask", new TaskController(taskDao));

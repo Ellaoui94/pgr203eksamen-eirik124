@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update member value</title>
+</head>
+<body>
+<h1>Update Member</h1>
+<form method="post" action="/api/updateMember">
+    <select name="member" id="member"></select><br>
+    <input type="text" name="update-member-f-name" placeholder="New first name" required><br>
+    <input type="text" name="update-member-l-name" placeholder="New last name" required><br>
+    <input type="email" name="update-member-email" placeholder="New email" required><br>
+    <button>Update</button>
+</form>
+</body>
+<script>
+    fetch("/api/projectMemberList")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("member").innerHTML = text;
+    });
+</script>
+</html>

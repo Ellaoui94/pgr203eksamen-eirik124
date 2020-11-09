@@ -7,6 +7,7 @@ import no.kristiania.httpServer.QueryString;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +18,7 @@ public class MemberController implements HttpController {
     private String body;
     private MemberDao dao;
     String status = "200";
+    String redirect;
 
     public MemberController(MemberDao dao) {
         this.dao = dao;
@@ -24,23 +26,25 @@ public class MemberController implements HttpController {
 
     @Override
     public void handle(String requestMethod, HttpMessage request, Socket clientSocket, OutputStream outputStream) throws IOException, SQLException {
-        String requestLine = request.getStartLine();
-        String requestTarget = requestLine.split(" ")[1];
+        String requestTarget = RequestTarget.requestTarget(request);
 
         try {
             if (requestMethod.equals("POST")) {
                 QueryString requestParameter = new QueryString(request.getBody());
 
+                if (requestTarget.equals("/api/updateMember")) {
+                    updateMember(requestParameter);
+                    redirect = "/updateMember.html";
+                } else {
+                    executeSqlStatement(requestParameter);
+                    redirect = "/newProjectMember.html";
+                }
 
-                Member member = new Member();
-                member.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
-                member.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
-                member.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
-                dao.insert(member);
-                System.out.println(member.getFirstName());
+
+
 
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
-                        "Location: /newProjectMember.html\r\n" +
+                        "Location: " + redirect + "\r\n" +
                         "Transfer-Encoding: chunked" +
                         "Connection: close\r\n" +
                         "\r\n").getBytes("UTF-8"));
@@ -81,6 +85,23 @@ public class MemberController implements HttpController {
                     message).getBytes("UTF-8"));
         }
 
+    }
+
+    private void executeSqlStatement(QueryString requestParameter) throws UnsupportedEncodingException, SQLException {
+        Member member = new Member();
+        member.setFirstName(URLDecoder.decode(requestParameter.getParameter("first_name"), StandardCharsets.UTF_8.name()));
+        member.setLastName(URLDecoder.decode(requestParameter.getParameter("last_name"), StandardCharsets.UTF_8.name()));
+        member.setEmail(URLDecoder.decode(requestParameter.getParameter("email"), StandardCharsets.UTF_8.name()));
+        dao.insert(member);
+    }
+
+    private void updateMember(QueryString requestParameter) throws UnsupportedEncodingException, SQLException {
+        String firstName = URLDecoder.decode(requestParameter.getParameter("update-member-f-name"), StandardCharsets.UTF_8.name());
+        String lastName = URLDecoder.decode(requestParameter.getParameter("update-member-l-name"), StandardCharsets.UTF_8.name());
+        String email = URLDecoder.decode(requestParameter.getParameter("update-member-email"), StandardCharsets.UTF_8.name());
+        String memberId = requestParameter.getParameter("member");
+        long id = Long.parseLong(memberId);
+        dao.updateMember(firstName, lastName, email, id);
     }
 
     public String getBody() throws SQLException {
