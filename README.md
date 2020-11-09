@@ -94,7 +94,7 @@ Funksjonalitet
 
 ### Ekstra poeng sjekklist
 - [ ] Håndtering av request target "/"
-- [ ] Avansert datamodell (mer enn 3 tabeller)
+- [X] Avansert datamodell (mer enn 3 tabeller)
 - [ ] Avansert funksjonalitet (redigering av prosjektmedlemmer, statuskategorier, prosjekter)
 - [ ] Implementasjon av cookies for å konstruere sesjoner: https://tools.ietf.org/html/rfc6265#section-3
 - [X] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
